@@ -1,6 +1,6 @@
 export const texts = {
     logo: {
-        fontSize: 50,
+        fontSize: 35,
         fontFamily: 'Bangers',
     },
     title: {
