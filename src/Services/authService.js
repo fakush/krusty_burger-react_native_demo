@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { api_key } from "../Database/firebaseConfig";
+
+const firebaseApiKey = process.env.EXPO_PUBLIC_FIREBASE_API_KEY
 
 export const authApi = createApi({
     reducerPath: 'authApi',
@@ -14,7 +15,7 @@ export const authApi = createApi({
         }),
         signIn: builder.mutation({
             query: (auth) => ({
-                url: `/accounts:signInWithPassword?key=${api_key}`,
+                url: `/accounts:signInWithPassword?key=${firebaseApiKey}`,
                 method: `POST`,
                 body: auth
             })
