@@ -4,7 +4,7 @@ import React from 'react'
 const Splash = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.loader}>Loading...</Text>
+      <Text style={styles.loader}>Please Wait...</Text>
     </View>
   )
 }
