@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 const markerImageLand = require('../../Assets/Icons/krusty-store_200.png')
 const markerImageSea = require('../../Assets/Icons/krusty-store-drilling-rig_300.png')
 
-const RenderMap = ({ location, stores }) => {
+const RenderMap = ({ location, closestStore, storeList }) => {
   const initialRegion = { latitude: -34.452026, longitude: -58.468837, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }
   const initialStore = [{ latlng: { latitude: -34.452026, longitude: -58.468837 }, title: 'Krusty Oil Rig Store', description: 'Krusty Store' }]
   const markerImage = location.latitude ? markerImageLand : markerImageSea
@@ -21,8 +21,8 @@ const RenderMap = ({ location, stores }) => {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     })
-    markers[0].title != 'Krusty Oil Rig Store' ?  setMarkers(stores) : setMarkers(initialStore)
-    }, [location, stores])
+    markers[0].title != 'Krusty Oil Rig Store' ?  setMarkers(closestStore) : setMarkers(initialStore)
+    }, [location, storeList, closestStore])
 
   return (
     <MapView

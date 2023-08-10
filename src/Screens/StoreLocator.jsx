@@ -74,6 +74,12 @@ const LocationSelector = ({ navigation }) => {
         if (location.latitude) {
           const storeObject = await getStoreLocations(location.latitude, location.longitude)
           const closestStoreData = {
+            latlng: { 
+              latitude: storeObject.closestLocation.coordinates.latitude,
+              longitude: storeObject.closestLocation.coordinates.longitude
+            }, 
+            title: storeObject.closestLocation.name, 
+            description: storeObject.closestLocation.address,
             latitude: storeObject.closestLocation.coordinates.latitude,
             longitude: storeObject.closestLocation.coordinates.longitude,
             address: storeObject.closestLocation.address,
@@ -100,7 +106,7 @@ const LocationSelector = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <MapComponent location={location} stores={stores} />
+      <MapComponent location={location} closestStore={closestStore} storeList={stores} />
       {location.latitude && <Text style={styles.text}>Lat: {location.latitude}, long: {location.longitude}.</Text>}
       {closestStore.address && <>
         <Text style={styles.text}>Closest store: {closestStore.address}, {closestStore.city}.</Text> 
