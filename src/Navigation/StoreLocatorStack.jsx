@@ -2,21 +2,21 @@ import React from "react";
 import Header from '../Components/Header'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Cart from "../Screens/Cart";
+import StoreLocator from "../Screens/StoreLocator";
 
 const Stack = createNativeStackNavigator()
 
-export default function CartStack() {
+export default function StoreLocatorStack() {
     return (
         <Stack.Navigator
-            initialRouteName="Cart"
+            initialRouteName="StoreLocator"
             screenOptions={({ route, navigation }) => ({
                 header: () => {
                     return <Header route={route} navigation={navigation} />;
                 },
             })}
         >
-            <Stack.Screen name="CartScreen" component={Cart} />
+            <Stack.Screen name="StoreLocatorScreen" component={StoreLocator} />
 
         </Stack.Navigator>
     );

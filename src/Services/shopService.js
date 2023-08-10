@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { EXPO_PUBLIC_REALTIME_DB_URL } from "@env"
 
-const realtime_database_url = process.env.EXPO_PUBLIC_REALTIME_DB_URL
+const realtime_database_url = EXPO_PUBLIC_REALTIME_DB_URL
 
 export const shopApi = createApi({
     reducerPath: 'shopApi',

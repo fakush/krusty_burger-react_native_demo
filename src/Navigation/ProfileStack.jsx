@@ -2,25 +2,22 @@ import React from "react";
 import Header from '../Components/Header'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import SignupPage from "../Screens/SignupPage";
-import LoginPage from "../Screens/LoginPage";
+import Profile from "../Screens/Profile";
 
 const Stack = createNativeStackNavigator()
 
-const AuthStack = () => {
+export default function ProfileStack() {
     return (
         <Stack.Navigator
-            initialRouteName="Login"
+            initialRouteName="Profile"
             screenOptions={({ route, navigation }) => ({
                 header: () => {
                     return <Header route={route} navigation={navigation} />;
                 },
             })}
         >
-            <Stack.Screen name="Login" component={LoginPage} />
-            <Stack.Screen name="Signup" component={SignupPage} />
+            <Stack.Screen name="ProfileScreen" component={Profile} />
+
         </Stack.Navigator>
     );
 };
-
-export default AuthStack;

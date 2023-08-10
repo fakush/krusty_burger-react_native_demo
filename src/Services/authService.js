@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { EXPO_PUBLIC_FIREBASE_API_KEY } from "@env"
 
-const firebaseApiKey = process.env.EXPO_PUBLIC_FIREBASE_API_KEY
+const firebaseApiKey = EXPO_PUBLIC_FIREBASE_API_KEY
 
 export const authApi = createApi({
     reducerPath: 'authApi',
@@ -8,7 +9,7 @@ export const authApi = createApi({
     endpoints: (builder) => ({
         signUp: builder.mutation({
             query: (auth) => ({
-                url: `/accounts:signUp?key=${api_key}`,
+                url: `/accounts:signUp?key=${firebaseApiKey}`,
                 method: `POST`,
                 body: auth
             })

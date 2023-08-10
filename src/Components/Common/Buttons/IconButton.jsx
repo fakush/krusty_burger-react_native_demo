@@ -1,24 +1,19 @@
 import { StyleSheet, Text, Pressable } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { colors } from '../../../Global/colors'
+import { Button } from 'react-native-paper';
 import React from 'react'
 
-const DefaultButton = ({ icon, color, onPress }) => {
+const DefaultButton = ({ icon, color, text, onPress }) => {
     return (
-        <Pressable
-            style={styles.buttonStyle}
-            onPress={onPress}
-        >
-            <Icon name={icon} size={30} type='material-community' color={color} />
-        </Pressable>
+        <Button
+            icon={icon}
+            buttonColor={colors.primary}
+            rippleColor={colors.primaryAccent}
+            textColor={colors.secondary}
+            onPress={onPress}>
+            {text}
+        </Button>
     )
 }
 
 export default DefaultButton
-
-const styles = StyleSheet.create({
-    buttonStyle: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'transparent',
-    }
-})

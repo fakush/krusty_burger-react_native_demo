@@ -3,16 +3,16 @@ import React from 'react'
 import { texts } from '../Global/texts'
 import { colors } from '../Global/colors'
 
-const Cart = () => {
+const StoreLocator = () => {
   return (
     <View style={styles.container}>
-      <Text style={texts.title}>Cart</Text>
+      <Text style={texts.title}>Store Locator</Text>
       <Text style={texts.subtitle}>Coming Soon</Text>
     </View>
   )
 }
 
-export default Cart
+export default StoreLocator
 
 const styles = StyleSheet.create({
     container: {

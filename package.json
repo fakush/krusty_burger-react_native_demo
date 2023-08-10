@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "start-c": "expo start --clear"
   },
   "icon": "./assets/app_icon.png",
   "dependencies": {
@@ -26,6 +27,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-dotenv": "^3.4.9",
     "react-native-elements": "^3.4.3",
     "react-native-paper": "^5.10.0",
     "react-native-safe-area-context": "4.5.0",

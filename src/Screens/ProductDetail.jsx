@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: colors.primaryAccent,
+    backgroundColor: colors.secondary,
     alignItems: 'center',
     padding: 10,
   },
   detailsContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: colors.primaryAccent,
+    backgroundColor: colors.secondary,
     marginTop: 10,
   },
   image: {

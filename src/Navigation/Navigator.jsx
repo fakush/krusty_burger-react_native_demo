@@ -3,34 +3,44 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { colors } from '../Global/colors'
-import ShopStack from './ShopStack'
-import CartStack from './CartStack'
+import MenuStack from './MenuStack'
+import StoreLocatorStack from './StoreLocatorStack'
 import OrderStack from './OrderStack'
+import ProfileStack from './ProfileStack'
+import AuthStack from './AuthStack';
 import TabIcon from '../Components/Common/TabIcon/TabIcon';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator()
 
 export default function Navigator() {
+    const { email } = useSelector(state => state.userReducer.value)
+
     return (
         <SafeAreaView style={styles.container} >
             <NavigationContainer style={styles.NavigationContainer}>
-                <Tab.Navigator
-                    initialRouteName='Shop'
-                    screenOptions={{
-                        headerShown: false,
-                        tabBarStyle: styles.tabBar,
-                        tabBarShowLabel: false,
-                    }}>
-                    <Tab.Screen name='Shop' component={ShopStack} options={{
-                        tabBarIcon: ({ focused }) => { return (<TabIcon icon='store' text='Shop' color={focused ? colors.primary : colors.secondary} />)}
-                    }}/>
-                    <Tab.Screen name='Cart' component={CartStack} options={{
-                        tabBarIcon: ({ focused }) => { return (<TabIcon icon='cart-variant' text='Cart' color={focused ? colors.primary : colors.secondary} />) }
-                    }} />
-                    <Tab.Screen name='Orders' component={OrderStack} options={{
-                        tabBarIcon: ({ focused }) => { return (<TabIcon icon='order-bool-descending-variant' text='Orders' color={focused ? colors.primary : colors.secondary} />) }
-                    }} />
-                </Tab.Navigator>
+                {
+                    email ?
+                        <Tab.Navigator
+                            initialRouteName='Menu'
+                            screenOptions={{
+                                headerShown: false,
+                                tabBarStyle: styles.tabBar,
+                                tabBarShowLabel: false,
+                            }}>
+                            <Tab.Screen name='Menu' component={MenuStack} options={{
+                                tabBarIcon: ({ focused }) => { return (<TabIcon icon='hamburger' text='Menu' color={focused ? colors.secondaryAccent : colors.secondary} />) }
+                            }} />
+                            <Tab.Screen name='Order' component={OrderStack} options={{
+                                tabBarIcon: ({ focused }) => { return (<TabIcon icon='cash-register' text='Order' color={focused ? colors.secondaryAccent : colors.secondary} />) }
+                            }} />
+                            <Tab.Screen name='Stores' component={StoreLocatorStack} options={{
+                                tabBarIcon: ({ focused }) => { return (<TabIcon icon='store-search' text='Store Locator' color={focused ? colors.secondaryAccent : colors.secondary} />) }
+                            }} />
+                            <Tab.Screen name='Profile' component={ProfileStack} options={{
+                                tabBarIcon: ({ focused }) => { return (<TabIcon icon='account-circle' text='Profile' color={focused ? colors.secondaryAccent : colors.secondary} />) }
+                            }} />
+                        </Tab.Navigator> : <AuthStack />}
             </NavigationContainer>
         </SafeAreaView>
     )
@@ -45,7 +55,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
     },
     tabBar: {
-        backgroundColor: colors.primaryAccent,
+        backgroundColor: colors.primary,
         shadowColor: 'black',
         elevation: 4,
         position: 'absolute',
@@ -53,5 +63,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         height: 50,
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
     }
 })
