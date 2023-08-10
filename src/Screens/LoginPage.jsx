@@ -24,7 +24,6 @@ const LoginPage = ({ navigation }) => {
     const isCorrectPassword = isAtLeastSixCharacters(password)
     
     if (isValidVariableEmail && isCorrectPassword) {
-      console.log('onSubmit');
       triggerSignIn({
         email,
         password,

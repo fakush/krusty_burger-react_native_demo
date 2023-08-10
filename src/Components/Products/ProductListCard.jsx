@@ -7,7 +7,7 @@ const ProductListCard = ({ item, navigation }) => {
     return (
         <Pressable style={styles.container} onPress={() => navigation.navigate('ProductDetail', { product: item })}>
             <CardComponent aditionalStyles={styles.cardStyles}>
-                <Text style={[texts.categories, styles.cardText]}>{item.title}</Text>
+                <Text style={[texts.categories, styles.cardText]}>{item.name}</Text>
                 <Image resizeMode='cover' style={styles.image} source={{ uri: item.thumbnail }} />
             </CardComponent>
         </Pressable>
@@ -32,13 +32,6 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 100,
-        borderRadius: 8,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        borderRadius: 8
     }
 })

@@ -5,6 +5,7 @@ import ProductListCard from '../Components/Products/ProductListCard'
 import ProductsSearchBar from '../Components/Products/ProductsSearchBar'
 import DefaultModal from '../Components/Common/Modals/DefaultModal'
 import { useSelector } from 'react-redux'
+import { useGetProductsByCategoryQuery } from '../Services/shopService'
 
 const searchValidation = (keyword) => {
     if (keyword.length < 3) {
@@ -15,7 +16,9 @@ const searchValidation = (keyword) => {
 }
 
 const Products = ({ navigation, route }) => {
-    const productsSelected = useSelector(state => state.productsReducer.value.productsSelected)
+    const { category } = route.params
+
+    const { data: productsSelected, isError, isLoading } = useGetProductsByCategoryQuery(category)
     
     const [products, setProducts] = useState([])
     const [keyword, setKeyword] = useState("")
@@ -29,7 +32,7 @@ const Products = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        const filterProducts = productsSelected.filter(product => product.title.toLowerCase().includes(keyword.toLowerCase()))
+        const filterProducts = productsSelected ? productsSelected.filter(product => product.name.toLowerCase().includes(keyword.toLowerCase())): []
         setProducts(filterProducts)
     }, [productsSelected, keyword])
 

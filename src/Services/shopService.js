@@ -8,20 +8,20 @@ export const shopApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: realtime_database_url }),
     endpoints: (builder) => ({
         getCategories: builder.query({
-            query: () => `categories.json`
+            query: () => `krusty_categories.json`
         }),
         getProducts: builder.query({
-            query: () => `products.json`
+            query: () => `krusty_products.json`
         }),
         getProductsByCategory: builder.query({
-            query: (category) => `products.json?orderBy="category"&equalTo="${category}"`,
+            query: (category) => `krusty_products.json?orderBy="category"&equalTo="${category}"`,
             transformResponse: (response) => {
                 const productsTransformed = Object.values(response)
                 return (productsTransformed)
             }
         }),
         getProductById: builder.query({
-            query: (productId) => `products.json?orderBy="id"&equalTo=${productId}`,
+            query: (productId) => `krusty_products.json?orderBy="id"&equalTo=${productId}`,
             transformResponse: (response) => {
                 const productTransformed = Object.values(response).pop()
                 return (productTransformed)

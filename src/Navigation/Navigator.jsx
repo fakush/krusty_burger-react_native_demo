@@ -19,8 +19,7 @@ export default function Navigator() {
     return (
         <SafeAreaView style={styles.container} >
             <NavigationContainer style={styles.NavigationContainer}>
-                {
-                    email ?
+                {/* {   email ? */}
                         <Tab.Navigator
                             initialRouteName='Menu'
                             screenOptions={{
@@ -40,7 +39,8 @@ export default function Navigator() {
                             <Tab.Screen name='Profile' component={ProfileStack} options={{
                                 tabBarIcon: ({ focused }) => { return (<TabIcon icon='account-circle' text='Profile' color={focused ? colors.secondaryAccent : colors.secondary} />) }
                             }} />
-                        </Tab.Navigator> : <AuthStack />}
+                        </Tab.Navigator> 
+                        {/* : <AuthStack />} */}
             </NavigationContainer>
         </SafeAreaView>
     )
