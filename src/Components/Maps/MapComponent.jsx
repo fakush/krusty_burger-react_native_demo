@@ -3,7 +3,7 @@ import React from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import { useState, useEffect } from 'react';
 
-const markerImageLand = require('../../Assets/Icons/krusty-store_200.png')
+const markerImageLand = require('../../Assets/Icons/krusty-store_150.png')
 const markerImageSea = require('../../Assets/Icons/krusty-store-drilling-rig_300.png')
 
 const RenderMap = ({ location, closestStore, storeList }) => {
@@ -21,7 +21,7 @@ const RenderMap = ({ location, closestStore, storeList }) => {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     })
-    markers[0].title != 'Krusty Oil Rig Store' ?  setMarkers(closestStore) : setMarkers(initialStore)
+    closestStore.name ? setMarkers([closestStore]) : setMarkers(initialStore)
     }, [location, storeList, closestStore])
 
   return (
