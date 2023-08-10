@@ -1,3 +1,6 @@
+import { EXPO_PUBLIC_REALTIME_DB_URL } from "@env";
+
+const firebaseDatabaseUrl = EXPO_PUBLIC_REALTIME_DB_URL;
 // Function to calculate distance between two coordinates (using Haversine formula)
 function calculateDistance(lat1, lon1, lat2, lon2) {
     const earthRadius = 6371; // Earth's radius in kilometers
@@ -57,53 +60,55 @@ function findClosestLocation(userLatitude, userLongitude, locationsData, searchR
     }
 }
 
-// Sample usage
-const userLatitude = -27.5; // Replace with user's latitude
-const userLongitude = -55.8; // Replace with user's longitude
+export default async function getClosestLocation(userLatitude, userLongitude) {
+    // Calculate initial bounding box coordinates with a 5-kilometer radius
+    const initialSearchRadius = 5;
+    const latitudeDelta = initialSearchRadius / 111.2;
+    const longitudeDelta = initialSearchRadius / (111.2 * Math.cos(userLatitude * (Math.PI / 180)));
 
-// Calculate initial bounding box coordinates with a 5-kilometer radius
-const initialSearchRadius = 5;
-const latitudeDelta = initialSearchRadius / 111.2;
-const longitudeDelta = initialSearchRadius / (111.2 * Math.cos(userLatitude * (Math.PI / 180)));
+    // Define the initial bounding box coordinates
+    const minLatitude = userLatitude - latitudeDelta;
+    const maxLatitude = userLatitude + latitudeDelta;
+    const minLongitude = userLongitude - longitudeDelta;
+    const maxLongitude = userLongitude + longitudeDelta;
 
-// Define the initial bounding box coordinates
-const minLatitude = userLatitude - latitudeDelta;
-const maxLatitude = userLatitude + latitudeDelta;
-const minLongitude = userLongitude - longitudeDelta;
-const maxLongitude = userLongitude + longitudeDelta;
+    // Replace this URL with your actual Firebase Realtime Database URL and 'locations' with your data path
+    const firebaseDatabase = `${firebaseDatabaseUrl}krusty_locales.json?orderBy="coordinates/latitude"&startAt=${minLatitude}&endAt=${maxLatitude}`;
 
-// Replace this URL with your actual Firebase Realtime Database URL and 'locations' with your data path
-const firebaseDatabaseUrl = `${process.env.EXPO_PUBLIC_REALTIME_DB_URL}locations.json?orderBy="coordinates/latitude"&startAt=${minLatitude}&endAt=${maxLatitude}`;
+    const response = fetch(firebaseDatabase)
+        .then((response) => response.json())
+        .then((data) => {
+            // Filter the locations within the initial bounding box
+            const locationsWithinRadius = Object.values(data).filter((location) => {
+                const locationLatitude = location.coordinates.latitude;
+                const locationLongitude = location.coordinates.longitude;
 
-fetch(firebaseDatabaseUrl)
-    .then((response) => response.json())
-    .then((data) => {
-        // Filter the locations within the initial bounding box
-        const locationsWithinRadius = Object.values(data).filter((location) => {
-            const locationLatitude = location.coordinates.latitude;
-            const locationLongitude = location.coordinates.longitude;
+                return (
+                    locationLatitude >= minLatitude &&
+                    locationLatitude <= maxLatitude &&
+                    locationLongitude >= minLongitude &&
+                    locationLongitude <= maxLongitude
+                );
+            });
 
-            return (
-                locationLatitude >= minLatitude &&
-                locationLatitude <= maxLatitude &&
-                locationLongitude >= minLongitude &&
-                locationLongitude <= maxLongitude
+            const closestLocation = findClosestLocation(
+                userLatitude,
+                userLongitude,
+                locationsWithinRadius,
+                initialSearchRadius
             );
+
+            const dataList = Object.values(data);
+
+            if (closestLocation) {
+                return { closestLocation: closestLocation, storeList: dataList };
+            } else {
+                return "No location found within 200 kilometers.";
+            }
+        })
+        .catch((error) => {
+            throw error;
         });
 
-        const closestLocation = findClosestLocation(
-            userLatitude,
-            userLongitude,
-            locationsWithinRadius,
-            initialSearchRadius
-        );
-
-        if (closestLocation) {
-            console.log("Closest location:", closestLocation);
-        } else {
-            console.log("No location found within 200 kilometers.");
-        }
-    })
-    .catch((error) => {
-        console.error("Error fetching data:", error);
-    });
+    return response;
+}
