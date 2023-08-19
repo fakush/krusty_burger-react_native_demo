@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ar.com.fcapps.krustyburguerapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "ar.com.fcapps.krustyburguerapp"
     },
     "web": {
       "favicon": "./assets/web_icon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5d4a2e49-3cee-4c21-baa1-27396b8f2f66"
+      }
+    },
+    "owner": "facucreus"
   }
 }
