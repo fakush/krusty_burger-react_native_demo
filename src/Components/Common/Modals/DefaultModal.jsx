@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, Modal } from 'react-native'
 import DefaultButton from '../Buttons/DefaultButton'
 import IconButton from '../Buttons/IconButton'
 import React from 'react'
-import { colors } from '../../../Global/colors'
-import { shadows } from '../../../Global/shadows'
+import { colors } from '../../../Utils/Global/colors'
+import { shadows } from '../../../Utils/Global/shadows'
 
 
 const DefaultModal = ({ title, body, modalVisible, onClose }) => {

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { texts } from '../Global/texts'
-import { colors } from '../Global/colors'
+import { texts } from '../../Utils/Global/texts'
+import { colors } from '../../Utils/Global/colors'
 
 const Profile = () => {
     return (

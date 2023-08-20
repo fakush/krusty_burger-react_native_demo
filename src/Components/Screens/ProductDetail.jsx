@@ -1,8 +1,8 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { colors } from '../Global/colors'
-import { shadows } from '../Global/shadows';
-import { texts } from '../Global/texts';
+import { colors } from '../../Utils/Global/colors'
+import { shadows } from '../../Utils/Global/shadows';
+import { texts } from '../../Utils/Global/texts';
 
 export default function ProductDetails({navigation, route}) {
   const { product } = route.params;

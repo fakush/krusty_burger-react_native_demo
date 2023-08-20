@@ -61,6 +61,14 @@ export const shopApi = createApi({
                 }
             })
         }),
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            try {
+                const result = await queryFulfilled;
+                dispatch(result);
+            } catch (error) {
+                dispatch(error);
+            }
+        },
     })
 })
 

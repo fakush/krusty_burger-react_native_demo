@@ -3,12 +3,12 @@ import React from 'react'
 import { TextInput } from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../Redux/Actions/userActions';
-import { isValidEmail, isAtLeastSixCharacters } from '../Utils/authValidations';
-import { colors } from '../Global/colors';
-import IconButton from '../Components/Common/Buttons/IconButton'
-import { texts } from '../Global/texts';
-import { useSignUpMutation } from '../Services/authService';
+import { setUser } from '../../Redux/Slices/userSlice';
+import { isValidEmail, isAtLeastSixCharacters } from '../../Utils/authValidations';
+import { colors } from '../../Utils/Global/colors';
+import IconButton from '../Common/Buttons/IconButton'
+import { texts } from '../../Utils/Global/texts';
+import { useSignUpMutation } from '../../Services/authService';
 
 const SignupPage = ({ navigation }) => {
   const [email, setEmail] = useState("");

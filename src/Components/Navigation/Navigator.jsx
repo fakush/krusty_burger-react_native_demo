@@ -2,13 +2,13 @@ import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { colors } from '../Global/colors'
+import { colors } from '../../Utils/Global/colors'
 import MenuStack from './MenuStack'
 import StoreLocatorStack from './StoreLocatorStack'
 import OrderStack from './OrderStack'
 import ProfileStack from './ProfileStack'
 import AuthStack from './AuthStack';
-import TabIcon from '../Components/Common/TabIcon/TabIcon';
+import TabIcon from '../Common/TabIcon/TabIcon';
 import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator()

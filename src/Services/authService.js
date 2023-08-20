@@ -20,7 +20,15 @@ export const authApi = createApi({
                 method: `POST`,
                 body: auth
             })
-        })
+        }),
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+            try {
+                const result = await queryFulfilled;
+                dispatch(result);
+            } catch (error) {
+                dispatch(error);
+            }
+        },
     })
 })
 

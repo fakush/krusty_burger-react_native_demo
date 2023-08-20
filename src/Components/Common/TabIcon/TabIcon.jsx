@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Icon } from 'react-native-elements'
-import { texts } from '../../../Global/texts'
+import { texts } from '../../../Utils/Global/texts'
 import { color } from 'react-native-elements/dist/helpers'
 
 export default function TabIcon({icon, color, text}) {

@@ -1,7 +1,7 @@
 import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
-import { colors } from '../../Global/colors'
+import { colors } from '../../Utils/Global/colors'
 import DefaultButton from '../Common/Buttons/DefaultButton'
 import IconButton from '../Common/Buttons/IconButton'
 

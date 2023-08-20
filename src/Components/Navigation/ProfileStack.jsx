@@ -1,22 +1,22 @@
 import React from "react";
-import Header from '../Components/Header'
+import Header from '../Common/Header'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import StoreLocator from "../Screens/StoreLocator";
+import Profile from "../Screens/Profile";
 
 const Stack = createNativeStackNavigator()
 
-export default function StoreLocatorStack() {
+export default function ProfileStack() {
     return (
         <Stack.Navigator
-            initialRouteName="StoreLocator"
+            initialRouteName="Profile"
             screenOptions={({ route, navigation }) => ({
                 header: () => {
                     return <Header route={route} navigation={navigation} />;
                 },
             })}
         >
-            <Stack.Screen name="StoreLocatorScreen" component={StoreLocator} />
+            <Stack.Screen name="ProfileScreen" component={Profile} />
 
         </Stack.Navigator>
     );

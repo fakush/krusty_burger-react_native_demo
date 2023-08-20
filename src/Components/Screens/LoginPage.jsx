@@ -3,12 +3,12 @@ import React from 'react'
 import { TextInput } from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../Redux/Actions/userActions';
-import { isValidEmail, isAtLeastSixCharacters } from '../Utils/authValidations';
-import { useSignInMutation } from '../Services/authService';
-import { colors } from '../Global/colors';
-import IconButton from '../Components/Common/Buttons/IconButton'
-import { texts } from '../Global/texts';
+import { setUser } from '../../Redux/Slices/userSlice';
+import { isValidEmail, isAtLeastSixCharacters } from '../../Utils/authValidations';
+import { useSignInMutation } from '../../Services/authService';
+import { colors } from '../../Utils/Global/colors';
+import IconButton from '../Common/Buttons/IconButton'
+import { texts } from '../../Utils/Global/texts';
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,16 +19,19 @@ const LoginPage = ({ navigation }) => {
   const dispatch = useDispatch()
   const [triggerSignIn, resultSignIn] = useSignInMutation();
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    console.log("🤡 Login Send"); 
     const isValidVariableEmail = isValidEmail(email)
     const isCorrectPassword = isAtLeastSixCharacters(password)
     
     if (isValidVariableEmail && isCorrectPassword) {
-      triggerSignIn({
+      console.log("🤡 Login Attempt"); 
+      await triggerSignIn({
         email,
         password,
         returnSecureToken: true,
       });
+      console.log("🤡 Result: ", resultSignIn);
     }
 
     if (!isValidVariableEmail) setErrorEmail('Email is not correct')
@@ -54,7 +57,7 @@ const LoginPage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../Assets/Icons/krusty-splash-alt_500.png')} />
+      <Image style={styles.image} source={require('../../Assets/Icons/krusty-splash-alt_500.png')} />
       <Text style={[texts.subtitle, styles.text]}>Login to continue</Text>
       <TextInput
         style={styles.input}

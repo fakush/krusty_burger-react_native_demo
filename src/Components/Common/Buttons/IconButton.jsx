@@ -1,5 +1,5 @@
 import { StyleSheet, Text, Pressable } from 'react-native'
-import { colors } from '../../../Global/colors'
+import { colors } from '../../../Utils/Global/colors'
 import { Button } from 'react-native-paper';
 import React from 'react'
 

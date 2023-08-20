@@ -1,9 +1,9 @@
 import { StyleSheet, Text, Pressable } from 'react-native'
 import React from 'react'
 import CardComponent from '../Common/CardComponent'
-import { texts } from '../../Global/texts'
+import { texts } from '../../Utils/Global/texts'
 import { useDispatch } from 'react-redux'
-import { setCategorySelected } from '../../Redux/Actions/productActions'
+import { setCategorySelected } from '../../Redux/Slices/productSlice'
 
 const CategoryCard = ({ item, navigation }) => {
   const dispatch = useDispatch()

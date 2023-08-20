@@ -1,11 +1,11 @@
 import { FlatList, Keyboard, StyleSheet, View } from 'react-native'
 import React, {useEffect, useState} from 'react'
-import { colors } from '../Global/colors'
-import ProductListCard from '../Components/Products/ProductListCard'
-import ProductsSearchBar from '../Components/Products/ProductsSearchBar'
-import DefaultModal from '../Components/Common/Modals/DefaultModal'
+import { colors } from '../../Utils/Global/colors'
+import ProductListCard from '../Products/ProductListCard'
+import ProductsSearchBar from '../Products/ProductsSearchBar'
+import DefaultModal from '../Common/Modals/DefaultModal'
 import { useSelector } from 'react-redux'
-import { useGetProductsByCategoryQuery } from '../Services/shopService'
+import { useGetProductsByCategoryQuery } from '../../Services/shopService'
 
 const searchValidation = (keyword) => {
     if (keyword.length < 3) {

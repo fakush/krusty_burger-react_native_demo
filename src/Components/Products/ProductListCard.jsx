@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import CardComponent from '../Common/CardComponent'
-import { texts } from '../../Global/texts'
+import { texts } from '../../Utils/Global/texts'
 
 const ProductListCard = ({ item, navigation }) => {
     return (

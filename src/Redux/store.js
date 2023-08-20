@@ -1,7 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
-import productsReducer from './Actions/productActions'
-import userReducer from './Actions/userActions'
+import productsReducer from './Slices/productSlice'
+import userReducer from './Slices/userSlice'
 import { shopApi } from '../Services/shopService'
 import { authApi } from '../Services/authService'
 

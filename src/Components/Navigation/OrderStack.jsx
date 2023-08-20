@@ -1,22 +1,21 @@
 import React from "react";
-import Header from '../Components/Header'
+import Header from '../Common/Header'
+import Orders from "../Screens/Orders";
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Profile from "../Screens/Profile";
-
 const Stack = createNativeStackNavigator()
 
-export default function ProfileStack() {
+export default function OrderStack() {
     return (
         <Stack.Navigator
-            initialRouteName="Profile"
+            initialRouteName="OrderScreen"
             screenOptions={({ route, navigation }) => ({
                 header: () => {
                     return <Header route={route} navigation={navigation} />;
                 },
             })}
         >
-            <Stack.Screen name="ProfileScreen" component={Profile} />
+            <Stack.Screen name="OrderScreen" component={Orders} />
 
         </Stack.Navigator>
     );

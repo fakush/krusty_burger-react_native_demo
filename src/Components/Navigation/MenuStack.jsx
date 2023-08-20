@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Products from '../Screens/Products'
 import Categories from '../Screens/Categories'
 import ProductDetails from '../Screens/ProductDetail'
-import Header from '../Components/Header'
+import Header from '../Common/Header'
 
 
 const Stack = createNativeStackNavigator()

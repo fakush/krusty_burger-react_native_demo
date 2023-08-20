@@ -1,21 +1,22 @@
 import React from "react";
-import Header from '../Components/Header'
-import Orders from "../Screens/Orders";
+import Header from '../Common/Header'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import StoreLocator from "../Screens/StoreLocator";
+
 const Stack = createNativeStackNavigator()
 
-export default function OrderStack() {
+export default function StoreLocatorStack() {
     return (
         <Stack.Navigator
-            initialRouteName="OrderScreen"
+            initialRouteName="StoreLocator"
             screenOptions={({ route, navigation }) => ({
                 header: () => {
                     return <Header route={route} navigation={navigation} />;
                 },
             })}
         >
-            <Stack.Screen name="OrderScreen" component={Orders} />
+            <Stack.Screen name="StoreLocatorScreen" component={StoreLocator} />
 
         </Stack.Navigator>
     );

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import {shadows} from '../../Global/shadows';
-import { colors } from '../../Global/colors';
-import {borders} from '../../Global/borders';
+import {shadows} from '../../Utils/Global/shadows';
+import { colors } from '../../Utils/Global/colors';
+import {borders} from '../../Utils/Global/borders';
 
 const CardComponent = ({children, aditionalStyles = []}) => {
   return (
