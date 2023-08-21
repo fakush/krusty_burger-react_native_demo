@@ -11,17 +11,17 @@ export const shopApi = createApi({
             query: () => `krusty_categories.json`
         }),
         getProducts: builder.query({
-            query: () => `krusty_products.json`
+            query: () => `products.json`
         }),
         getProductsByCategory: builder.query({
-            query: (category) => `krusty_products.json?orderBy="category"&equalTo="${category}"`,
+            query: (category) => `products.json?orderBy="category"&equalTo="${category}"`,
             transformResponse: (response) => {
                 const productsTransformed = Object.values(response)
                 return (productsTransformed)
             }
         }),
         getProductById: builder.query({
-            query: (productId) => `krusty_products.json?orderBy="id"&equalTo=${productId}`,
+            query: (productId) => `products.json?orderBy="id"&equalTo=${productId}`,
             transformResponse: (response) => {
                 const productTransformed = Object.values(response).pop()
                 return (productTransformed)

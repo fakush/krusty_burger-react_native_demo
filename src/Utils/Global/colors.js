@@ -11,4 +11,6 @@ export const colors = {
     textLight: "#FFFFFF",
     textDark: "#000000",
     textDarkAccent: "#333333",
+    addToCart: "#0FFF00",
+    removeFromCart: "#FF0000",
 };

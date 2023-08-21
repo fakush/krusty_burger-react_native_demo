@@ -8,7 +8,7 @@ const ProductListCard = ({ item, navigation }) => {
         <Pressable style={styles.container} onPress={() => navigation.navigate('ProductDetail', { product: item })}>
             <CardComponent aditionalStyles={styles.cardStyles}>
                 <Text style={[texts.categories, styles.cardText]}>{item.name}</Text>
-                <Image resizeMode='cover' style={styles.image} source={{ uri: item.thumbnail }} />
+                <Image resizeMode='cover' style={styles.image} source={{ uri: item.sizes[0].image }} />
             </CardComponent>
         </Pressable>
     )

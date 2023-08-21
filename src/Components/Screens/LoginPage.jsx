@@ -20,18 +20,15 @@ const LoginPage = ({ navigation }) => {
   const [triggerSignIn, resultSignIn] = useSignInMutation();
 
   const onSubmit = async () => {
-    console.log("🤡 Login Send"); 
     const isValidVariableEmail = isValidEmail(email)
     const isCorrectPassword = isAtLeastSixCharacters(password)
     
     if (isValidVariableEmail && isCorrectPassword) {
-      console.log("🤡 Login Attempt"); 
       await triggerSignIn({
         email,
         password,
         returnSecureToken: true,
       });
-      console.log("🤡 Result: ", resultSignIn);
     }
 
     if (!isValidVariableEmail) setErrorEmail('Email is not correct')

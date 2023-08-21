@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Burgers",
+    "subcategories": [
+      "Krusty Burger Classics",
+      "Veggie Burgers",
+      "Specialty Burgers",
+      "Classic Burgers"
+    ]
+  },
+  {
+    "name": "Hot Dogs",
+    "subcategories": [
+      "Classic Hot Dogs",
+      "Chili Cheese Dogs",
+      "Jumbo Dogs",
+      "Specialty Hot Dogs"
+    ]
+  },
+  {
+    "name": "Sandwiches",
+    "subcategories": [
+      "BLT Sandwiches",
+      "Fish Fillet Sandwiches",
+      "Veggie Sandwiches"
+    ]
+  },
+  {
+    "name": "Chicken",
+    "subcategories": [
+      "Crispy Chicken",
+      "Grilled Chicken",
+      "Chicken Wings"
+    ]
+  },
+  {
+    "name": "Breakfast",
+    "subcategories": [
+      "Breakfast Platters",
+      "Breakfast Burritos",
+      "Pancakes & Waffles"
+    ]
+  },
+  {
+    "name": "Desserts",
+    "subcategories": [
+      "Milkshakes",
+      "Sweet Treats",
+      "Ice Cream"
+    ]
+  },
+  {
+    "name": "Side Options",
+    "subcategories": []
+  },
+  {
+    "name": "Beverages",
+    "subcategories": [
+      "Sodas"
+    ]
+  }
+]
