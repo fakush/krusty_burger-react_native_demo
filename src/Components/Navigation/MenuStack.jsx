@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Products from '../Screens/Products'
-import Categories from '../Screens/Categories'
+import ProductsList from '../Screens/ProductsList'
+import MainMenu from '../Screens/MainMenu'
 import ProductDetails from '../Screens/ProductDetail'
 import Header from '../Common/Header'
 
 
 const Stack = createNativeStackNavigator()
 
-const ShopStack = () => {
+const MenuStack = () => {
   return (
       <Stack.Navigator
           initialRouteName="Menu"
@@ -19,11 +19,11 @@ const ShopStack = () => {
               },
           })}
       >
-          <Stack.Screen name="Category" component={Categories} />
-          <Stack.Screen name="Products" component={Products} />
+          <Stack.Screen name="MainMenu" component={MainMenu} />
+          <Stack.Screen name="ProductsList" component={ProductsList} />
           <Stack.Screen name="ProductDetail" component={ProductDetails} />
       </Stack.Navigator>
   )
 }
 
-export default ShopStack
+export default MenuStack

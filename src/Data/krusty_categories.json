@@ -6,7 +6,8 @@
       "Veggie Burgers",
       "Specialty Burgers",
       "Classic Burgers"
-    ]
+    ],
+    "icon": "hamburger"
   },
   {
     "name": "Hot Dogs",
@@ -15,7 +16,8 @@
       "Chili Cheese Dogs",
       "Jumbo Dogs",
       "Specialty Hot Dogs"
-    ]
+    ],
+    "icon": "food-hot-dog"
   },
   {
     "name": "Sandwiches",
@@ -23,7 +25,8 @@
       "BLT Sandwiches",
       "Fish Fillet Sandwiches",
       "Veggie Sandwiches"
-    ]
+    ],
+    "icon": "food"
   },
   {
     "name": "Chicken",
@@ -31,7 +34,8 @@
       "Crispy Chicken",
       "Grilled Chicken",
       "Chicken Wings"
-    ]
+    ],
+    "icon": "food-drumstick"
   },
   {
     "name": "Breakfast",
@@ -39,7 +43,8 @@
       "Breakfast Platters",
       "Breakfast Burritos",
       "Pancakes & Waffles"
-    ]
+    ],
+    "icon": "food-croissant"
   },
   {
     "name": "Desserts",
@@ -47,16 +52,19 @@
       "Milkshakes",
       "Sweet Treats",
       "Ice Cream"
-    ]
+    ],
+    "icon": "ice-cream"
   },
   {
     "name": "Side Options",
-    "subcategories": []
+    "subcategories": [],
+    "icon": "french-fries"
   },
   {
     "name": "Beverages",
     "subcategories": [
       "Sodas"
-    ]
+    ],
+    "icon": "beer"
   }
 ]

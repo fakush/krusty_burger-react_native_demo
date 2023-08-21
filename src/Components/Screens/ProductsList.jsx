@@ -15,7 +15,7 @@ const searchValidation = (keyword) => {
     return regex.test(keyword)
 }
 
-const Products = ({ navigation, route }) => {
+const ProductsList = ({ navigation, route }) => {
     const { category } = route.params
 
     const { data: productsSelected, isError, isLoading } = useGetProductsByCategoryQuery(category)
@@ -72,7 +72,7 @@ const Products = ({ navigation, route }) => {
     )
 }
 
-export default Products
+export default ProductsList
 
 const styles = StyleSheet.create({
     container: {
