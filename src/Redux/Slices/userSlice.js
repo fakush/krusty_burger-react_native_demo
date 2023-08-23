@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import localPersistence from "../../Services/localPersistence";
+import localPersistence from "../../Services/localPersistenceService";
 
 export const userActions = createSlice({
     name: "User",

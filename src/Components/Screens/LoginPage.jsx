@@ -9,7 +9,7 @@ import { useSignInMutation } from '../../Services/authService';
 import { colors } from '../../Utils/Global/colors';
 import IconButton from '../Common/Buttons/IconButton'
 import { texts } from '../../Utils/Global/texts';
-import localPersistence from '../../Services/localPersistence';
+import localPersistence from '../../Services/localPersistenceService';
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState('');

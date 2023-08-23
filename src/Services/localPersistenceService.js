@@ -9,7 +9,7 @@ class LocalPersistence {
         console.log('🟩 persistence: ', key, value);
         try {
             await this.storage.setItem(key, value);
-            return console.log('🟩 persistence response: ', await AsyncStorage.setItem(key));
+            return console.log('🟩 persistence response: ', await AsyncStorage.getItem(key));
         } catch (error) {
             return console.log('🟥 save persistence error: ', error); 
         }
@@ -20,7 +20,7 @@ class LocalPersistence {
             const jsonValue = JSON.stringify(value);
             console.log('🟩 persistence data: ', key, jsonValue);
             await AsyncStorage.setItem(key, jsonValue);
-            return console.log('🟩 persistence response: ', await AsyncStorage.setItem(key));
+            return console.log('🟩 persistence response: ', await AsyncStorage.getItem(key));
         } catch (error) {
             return console.log('🟥 jsonSave persistence error: ', error);
         }
@@ -44,6 +44,15 @@ class LocalPersistence {
             return jsonValue != null ? JSON.parse(jsonValue) : null;
         } catch (error) {
             return console.log('🟥 json get persistence error: ', error);
+        }
+    }
+
+    async clearStorage() {
+        try {
+            await AsyncStorage.clear();
+            return console.log('🟩 localPersistence deleted');
+        } catch (error) {
+            return console.log('🟥 clear persistence error: ', error);
         }
     }
 }
