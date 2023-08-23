@@ -61,7 +61,7 @@ const LocationSelector = ({ navigation }) => {
         });
 
       } catch (error) {
-        console.log(error.message);
+        console.log('🟥 location error: ', error.message);
         setError(error.message)
       }
     })()

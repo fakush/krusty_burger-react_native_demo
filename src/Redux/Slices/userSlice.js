@@ -1,19 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import localPersistence from "../../Services/localPersistence";
+
+const setInitialState = async () => {
+    const localUser = await localPersistence.jsonGet('user')
+    if (localUser) {
+        console.log(localUser);
+        return localUser
+    } else {
+        return {email: "", idToken: "", localId: "", profileImage: "", location: { latitude: "", longitude: "", address: "" }}
+    }
+}
 
 export const userActions = createSlice({
     name: "User",
     initialState: {
-        value: {
-            email: "",
-            idToken: "",
-            localId: "",
-            profileImage: "",
-            location: {
-                latitude: "",
-                longitude: "",
-                address: ""
-            },
-        }
+        value: setInitialState()
     },
     reducers: {
         setUser: (state, action) => {

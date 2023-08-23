@@ -1,11 +1,11 @@
-import { FlatList, Keyboard, StyleSheet, View } from 'react-native'
+import { FlatList, Keyboard, Image, StyleSheet, Text, View } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { colors } from '../../Utils/Global/colors'
-import ProductListCard from '../Products/ProductListCard'
 import ProductsSearchBar from '../Products/ProductsSearchBar'
 import DefaultModal from '../Common/Modals/DefaultModal'
-import { useSelector } from 'react-redux'
 import { useGetProductsByCategoryQuery } from '../../Services/shopService'
+import ProductGridItem from '../Products/ProductGridItem'
+import { texts } from '../../Utils/Global/texts'
 
 const searchValidation = (keyword) => {
     if (keyword.length < 3) {
@@ -18,7 +18,7 @@ const searchValidation = (keyword) => {
 const ProductsList = ({ navigation, route }) => {
     const { category } = route.params
 
-    const { data: productsSelected, isError, isLoading } = useGetProductsByCategoryQuery(category)
+    const { data: productsSelected, isError, isLoading } = useGetProductsByCategoryQuery(category.name)
     
     const [products, setProducts] = useState([])
     const [keyword, setKeyword] = useState("")
@@ -62,11 +62,15 @@ const ProductsList = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
+            <Image style={styles.image} source={{ uri: category.banner }} />
+
+            <Text style={[texts.subtitle, styles.text]}>{category.name}</Text>
             <ProductsSearchBar onSearch={onSearch} onClear={onClear} goBack={() => navigation.goBack()} />
             <FlatList
                 data={products}
                 keyExtractor={product => product.id}
-                renderItem={({ item }) => ProductListCard({ item, navigation })} />
+                numColumns={3}
+                renderItem={({ item }) => ProductGridItem({ item, navigation })} />
             {keywordError && <DefaultModal title='Error' body={keywordError} modalVisible={modalVisible} onClose={onCloseError} />}
         </View>
     )
@@ -80,5 +84,17 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: colors.secondary,
         padding: 10,
-    }
+        paddingBottom: 60,
+    },
+    image: {
+        width: '100%',
+        height: 200,
+        resizeMode: 'cover',
+        borderTopLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    text: {
+        color: "#772A2B",
+        fontWeight: 'bold',
+    },
 })

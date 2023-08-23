@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import { TextInput } from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,32 +9,42 @@ import { useSignInMutation } from '../../Services/authService';
 import { colors } from '../../Utils/Global/colors';
 import IconButton from '../Common/Buttons/IconButton'
 import { texts } from '../../Utils/Global/texts';
+import localPersistence from '../../Services/localPersistence';
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('')
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errorPassword, setErrorPassword] = useState('')
 
   const dispatch = useDispatch()
   const [triggerSignIn, resultSignIn] = useSignInMutation();
 
+  const ref_password = useRef()
+  
+  const validateEmail = () => {
+    const isValidVariableEmail = isValidEmail(email)
+    if (!isValidVariableEmail && email !== "") setErrorEmail('Email format error')
+    else setErrorEmail('')
+  }
+
+  const validatePassword = () => {
+    const isCorrectPassword = isAtLeastSixCharacters(password)
+    if (!isCorrectPassword && password !== "") setErrorPassword('Password must be at least 6 characters')
+    else setErrorPassword('')
+  }
+
   const onSubmit = async () => {
     const isValidVariableEmail = isValidEmail(email)
     const isCorrectPassword = isAtLeastSixCharacters(password)
-    
+
     if (isValidVariableEmail && isCorrectPassword) {
-      await triggerSignIn({
-        email,
-        password,
-        returnSecureToken: true,
-      });
+      await triggerSignIn({email, password, returnSecureToken: true,});
     }
 
-    if (!isValidVariableEmail) setErrorEmail('Email is not correct')
-    else setErrorEmail('')
-    if (!isCorrectPassword) setErrorPassword('Password must be at least 6 characters')
-    else setErrorPassword('')
+    validateEmail()
+    validatePassword()
   };
 
   useEffect(() => {
@@ -49,6 +59,16 @@ const LoginPage = ({ navigation }) => {
           longitude: "",
         }
       }))
+      localPersistence.jsonSave('user', {
+        email: resultSignIn.data.email,
+        idToken: resultSignIn.data.idToken,
+        localId: resultSignIn.data.localId,
+        profileImage: "",
+        location: {
+          latitude: "",
+          longitude: "",
+        }
+      })
     }
   }, [resultSignIn])
 
@@ -62,18 +82,25 @@ const LoginPage = ({ navigation }) => {
         label="Email"
         value={email}
         onChangeText={(email) => setEmail(email)}
+        onSubmitEditing={() => { ref_password.current.focus() }}
+        onBlur={validateEmail}
         error={errorEmail}
       />
+      {errorEmail && <Text style={styles.error}>{errorEmail}</Text>}
       <TextInput
+        ref={ref_password}
         style={styles.input}
         mode="outlined"
         label="Password"
         value={password}
-        secureTextEntry
-        right={<TextInput.Icon icon="eye" />}
+        secureTextEntry={!showPassword}
+        right={<TextInput.Icon icon="eye" onPress={() => setShowPassword(!showPassword)} />}
         onChangeText={(password) => setPassword(password)}
+        onSubmitEditing={onSubmit}
+        onBlur={validatePassword}
         error={errorPassword}
       />
+      {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
       <View style={styles.button}>
         <IconButton icon='login' text='Login' onPress={onSubmit} />
       </View>
@@ -117,4 +144,9 @@ const styles = StyleSheet.create({
     marginBottom: 36,
     gap: 10,
   },
+  error: {
+    color: '#c11f44',
+    alignSelf: 'flex-start',
+    paddingLeft: '10%',
+  }
 })

@@ -1,9 +1,10 @@
-import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
+import { Keyboard, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
 import { colors } from '../../Utils/Global/colors'
 import DefaultButton from '../Common/Buttons/DefaultButton'
 import IconButton from '../Common/Buttons/IconButton'
+import { TextInput } from 'react-native-paper'
 
 const ProductsSearchBar = ({ onSearch, onClear, goBack }) => {
     const [search, setSearch] = useState("")
@@ -13,13 +14,17 @@ const ProductsSearchBar = ({ onSearch, onClear, goBack }) => {
         setSearch("")
         onClear()
     }
-    
+
     return (
         <View style={styles.container}>
-            <IconButton icon='arrow-left-circle' color={'black'} onPress={goBack} />
-            <TextInput style={styles.TextInput} placeholder='Search...' value={search} onChangeText={setSearch} />
-            <DefaultButton icon='card-search' text='Find' color={colors.primary} onPress={() => onSearch(search)} />
-            <IconButton icon='close-circle' color={'black'} onPress={onClearSearch} />
+            <TextInput
+                style={styles.TextInput} 
+                placeholder='Search...' 
+                value={search} 
+                onChangeText={setSearch}
+                onSubmitEditing={() => onSearch(search)}
+                right={<TextInput.Icon icon="close-circle" onPress={onClearSearch} color={colors.primary} />}
+                />
         </View>
     )
 }
@@ -42,7 +47,8 @@ const styles = StyleSheet.create({
     TextInput: {
         flex: 1,
         height: 35,
-        borderBottomColor: colors.gray,
-        borderBottomWidth: 3,
+        borderBottomColor: colors.primary,
+        borderBottomWidth: 1,
+        backgroundColor: colors.secondary,
     }
 })

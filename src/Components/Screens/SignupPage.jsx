@@ -61,8 +61,8 @@ const SignupPage = ({ navigation }) => {
       else setErrorConfirmPassword('')
 
     } catch (err) {
-      console.log("Catch error");
-      console.log(err.message);
+      console.log('🟥 Catch error');
+      console.log('🟥 signup error: ', err.message);
     }
   };
 

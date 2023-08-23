@@ -12,7 +12,7 @@ const CategoryItem = ({ item, navigation }) => {
 
   const onSelectCategory = () => {
     dispatch(setCategorySelected(item))
-    navigation.navigate('ProductsList', { category: item.name })
+    navigation.navigate('ProductsList', { category: item })
   }
 
   return (
