@@ -1,11 +1,11 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import productsReducer from './Slices/productSlice'
-import userReducer from './Slices/userSlice'
+import userReducer, { getLocalUserData } from './Slices/userSlice'
 import { shopApi } from '../Services/shopService'
 import { authApi } from '../Services/authService'
 
-export default configureStore({
+const store = configureStore({
     reducer: {
         productsReducer,
         userReducer,
@@ -14,5 +14,9 @@ export default configureStore({
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(shopApi.middleware, authApi.middleware),
 })
+
+store.dispatch(getLocalUserData())
+
+export default store
 
 setupListeners(configureStore.dispatch)
