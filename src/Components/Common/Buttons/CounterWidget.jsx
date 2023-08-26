@@ -3,7 +3,7 @@ import React from 'react'
 import { IconButton } from 'react-native-paper'
 import { colors } from '../../../Utils/Global/colors'
 
-const AddToCart = ({ item, onAddToPurchase, onRemoveFromPurchase }) => {
+const AddToCart = ({ onCart, onAddToPurchase, onRemoveFromPurchase }) => {
   return (
     <View style={styles.container}>
       <IconButton
@@ -11,10 +11,10 @@ const AddToCart = ({ item, onAddToPurchase, onRemoveFromPurchase }) => {
         mode='contained'
         size={10}
         iconColor={colors.light}
-        containerColor={item.quantity > 0 ? 'red' : '#E97373'}
+        containerColor={onCart > 0 ? 'red' : '#E97373'}
         onPress={onRemoveFromPurchase}
       />
-      <Text style={styles.amountContainer}>{item.quantity}0</Text>
+      <Text style={styles.amountContainer}>{onCart}</Text>
       <IconButton
         icon='plus-thick'
         mode='contained'

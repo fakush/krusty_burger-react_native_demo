@@ -5,7 +5,7 @@ import { colors } from '../../Utils/Global/colors'
 import CounterWidget from '../Common/Buttons/CounterWidget'
 import { Icon } from 'react-native-elements'
 
-const ProductSizeCard = ({ item, onAddToPurchase, onRemoveFromPurchase }) => {
+const ProductSizeCard = ({ item, onCart, onAddToPurchase, onRemoveFromPurchase }) => {
     const itemPrice = item.discount > 0 ? item.price - (item.price * item.discount) : item.price
     return (
         <View style={styles.purchaseOption}>
@@ -19,7 +19,7 @@ const ProductSizeCard = ({ item, onAddToPurchase, onRemoveFromPurchase }) => {
                     </Text>
                 }
             </View>
-            <CounterWidget item={item} onAddToPurchase={onAddToPurchase} onRemoveFromPurchase={onRemoveFromPurchase}/>
+            <CounterWidget onCart={onCart} onAddToPurchase={onAddToPurchase} onRemoveFromPurchase={onRemoveFromPurchase}/>
         </View>
     )
 }

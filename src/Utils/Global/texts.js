@@ -1,7 +1,7 @@
 export const texts = {
     logo: {
         fontSize: 25,
-        fontFamily: 'Bangers',
+        fontFamily: 'Gluten',
     },
     title: {
         fontSize: 35,

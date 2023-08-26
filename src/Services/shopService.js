@@ -11,7 +11,7 @@ export const shopApi = createApi({
             query: () => `krusty_categories.json`
         }),
         getProducts: builder.query({
-            query: () => `products.json`
+            query: () => `krusty_products.json`
         }),
         getProductsByCategory: builder.query({
             query: (category) => `products.json?orderBy="category"&equalTo="${category}"`,
@@ -27,38 +27,18 @@ export const shopApi = createApi({
                 return (productTransformed)
             }
         }),
+        getCartHistory: builder.query({
+            query: (userId) => `krusty_orders.json?orderBy="userId"&equalTo=${userId}`,
+            transformResponse: (response) => {
+                const productTransformed = Object.values(response).pop()
+                return (productTransformed)
+            }
+        }),
         postCart: builder.mutation({
             query: (order) => ({
-                url: `orders.json`,
+                url: `krusty_orders.json`,
                 method: `POST`,
                 body: order
-            })
-        }),
-        getProfileImage: builder.query({
-            query: (localId) => `profileImages/${localId}.json`,
-        }),
-        //Aquí hacemos un put para que no me genere ninguna clave nueva de por medio.
-        postProfileImage: builder.mutation({
-            query: ({ image, localId }) => ({
-                url: `profileImages/${localId}.json`,
-                method: "PUT",
-                body: {
-                    image: image
-                },
-            }),
-        }),
-        getUserLocation: builder.query({
-            query: (localId) => `locations/${localId}.json`,
-        }),
-        postUserLocation: builder.mutation({
-            query: ({ location, localId }) => ({
-                url: `locations/${localId}.json`,
-                method: "PUT",
-                body: {
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                    address: location.address
-                }
             })
         }),
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -77,9 +57,6 @@ export const {
     useGetProductsQuery,
     useGetProductsByCategoryQuery,
     useGetProductByIdQuery,
+    useGetCartHistoryQuery,
     usePostCartMutation,
-    useGetProfileImageQuery,
-    usePostProfileImageMutation,
-    useGetUserLocationQuery,
-    usePostUserLocationMutation,
 } = shopApi

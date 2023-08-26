@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import React, { useRef } from 'react'
 import { TextInput } from 'react-native-paper';
 import { useState, useEffect } from 'react';
@@ -22,7 +22,7 @@ const LoginPage = ({ navigation }) => {
   const [triggerSignIn, resultSignIn] = useSignInMutation();
 
   const ref_password = useRef()
-  
+
   const validateEmail = () => {
     const isValidVariableEmail = isValidEmail(email)
     if (!isValidVariableEmail && email !== "") setErrorEmail('Email format error')
@@ -40,7 +40,7 @@ const LoginPage = ({ navigation }) => {
     const isCorrectPassword = isAtLeastSixCharacters(password)
 
     if (isValidVariableEmail && isCorrectPassword) {
-      await triggerSignIn({email, password, returnSecureToken: true,});
+      await triggerSignIn({ email, password, returnSecureToken: true, });
     }
 
     validateEmail()
@@ -73,42 +73,44 @@ const LoginPage = ({ navigation }) => {
   }, [resultSignIn])
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={require('../../Assets/Icons/krusty-splash-alt_500.png')} />
-      <Text style={[texts.subtitle, styles.text]}>Login to continue</Text>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        label="Email"
-        value={email}
-        onChangeText={(email) => setEmail(email)}
-        onSubmitEditing={() => { ref_password.current.focus() }}
-        onBlur={validateEmail}
-        error={errorEmail}
-      />
-      {errorEmail && <Text style={styles.error}>{errorEmail}</Text>}
-      <TextInput
-        ref={ref_password}
-        style={styles.input}
-        mode="outlined"
-        label="Password"
-        value={password}
-        secureTextEntry={!showPassword}
-        right={<TextInput.Icon icon="eye" onPress={() => setShowPassword(!showPassword)} />}
-        onChangeText={(password) => setPassword(password)}
-        onSubmitEditing={onSubmit}
-        onBlur={validatePassword}
-        error={errorPassword}
-      />
-      {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
-      <View style={styles.button}>
-        <IconButton icon='login' text='Login' onPress={onSubmit} />
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps='handled'>
+      <View style={styles.container}>
+        <Image style={styles.image} source={require('../../Assets/Icons/krusty-burger-logo-alt_500.png')} />
+        <Text style={[texts.subtitle, styles.text]}>Login to continue</Text>
+        <TextInput
+          style={styles.input}
+          mode="outlined"
+          label="Email"
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          onSubmitEditing={() => { ref_password.current.focus() }}
+          onBlur={validateEmail}
+          error={errorEmail}
+        />
+        {errorEmail && <Text style={styles.error}>{errorEmail}</Text>}
+        <TextInput
+          ref={ref_password}
+          style={styles.input}
+          mode="outlined"
+          label="Password"
+          value={password}
+          secureTextEntry={!showPassword}
+          right={<TextInput.Icon icon="eye" onPress={() => setShowPassword(!showPassword)} />}
+          onChangeText={(password) => setPassword(password)}
+          onSubmitEditing={onSubmit}
+          onBlur={validatePassword}
+          error={errorPassword}
+        />
+        {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
+        <View style={styles.button}>
+          <IconButton icon='login' text='Login' onPress={onSubmit} />
+        </View>
+        <View style={styles.register}>
+          <Text>Don't have an account?</Text>
+          <IconButton icon='account-plus' text='Register' onPress={() => navigation.navigate("Signup")} />
+        </View>
       </View>
-      <View style={styles.register}>
-        <Text>Don't have an account?</Text>
-        <IconButton icon='account-plus' text='Register' onPress={() => navigation.navigate("Signup")} />
-      </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -141,6 +143,7 @@ const styles = StyleSheet.create({
   register: {
     flex: 1,
     justifyContent: "flex-end",
+    marginTop: 60,
     marginBottom: 36,
     gap: 10,
   },
