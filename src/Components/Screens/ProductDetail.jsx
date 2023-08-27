@@ -92,7 +92,11 @@ export default function ProductDetails({ navigation, route }) {
           <FlatList
             data={product.sizes}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (<ProductSizeCard item={item} onCart={getItemsOnCart(item)} onAddToPurchase={() => onAddToPurchase(item)} onRemoveFromPurchase={() => onRemoveFromPurchase(item)} />)}
+            renderItem={({ item }) => (<ProductSizeCard 
+                                          item={item} 
+                                          onCart={getItemsOnCart(item)} 
+                                          onAddToPurchase={() => onAddToPurchase(item)} 
+                                          onRemoveFromPurchase={() => onRemoveFromPurchase(item)} />)}
           />
         </View>
       </View>
@@ -100,7 +104,7 @@ export default function ProductDetails({ navigation, route }) {
       <DefaultButton icon={'cart'} text='Add to Cart' color={colors.primary} onPress={() => onAddToCart()} />
       <Snackbar 
         style={styles.snackbar}
-        duration={1500}
+        duration={1000}
         visible={visible}
         onDismiss={() => goToMainMenu()}
         >
