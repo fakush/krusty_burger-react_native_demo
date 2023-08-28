@@ -30,6 +30,10 @@ export default function ProductDetails({ navigation, route }) {
     } 
   }, [cartArray])
 
+  useEffect(() => {
+    calculateTotal()
+  }, [purchase])
+
   const calculateTotal = () => {
     let total = 0
     purchase.forEach(item => {
@@ -47,7 +51,6 @@ export default function ProductDetails({ navigation, route }) {
       return purchaseItem
     })
     setPurchase(newPurchase)
-    calculateTotal()
   }
 
   const onRemoveFromPurchase = (item) => {
@@ -58,7 +61,6 @@ export default function ProductDetails({ navigation, route }) {
       return purchaseItem
     })
     setPurchase(newPurchase)
-    calculateTotal()
   }
 
   const onAddToCart = () => {

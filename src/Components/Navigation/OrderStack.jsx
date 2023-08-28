@@ -1,6 +1,6 @@
 import React from "react";
 import Header from '../Common/Header'
-import Orders from "../Screens/Orders";
+import Orders from "../Screens/OrdersPage";
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 const Stack = createNativeStackNavigator()

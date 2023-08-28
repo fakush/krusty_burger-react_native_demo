@@ -5,11 +5,12 @@ import { Icon } from 'react-native-elements'
 import { texts } from '../../Utils/Global/texts'
 import { colors } from '../../Utils/Global/colors'
 
-const CartItemComponent = ({ item }) => {
+const CartItemComponent = ({ item, onAddToPurchase, onRemoveFromPurchase, onDeleteFromPurchase }) => {
     const itemPrice = item.discount > 0 ? item.price - (item.price * item.discount) : item.price
     return (
         <View style={styles.purchaseOption}>
-            <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 15 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 5 }}>
+                <Icon name='cancel' size={20} type='material-community' color='red' onPress={() => onDeleteFromPurchase()} />
                 <Text style={styles.text}>{item.name}</Text>
                 <Text style={styles.text}>${Math.round(itemPrice * 100) / 100}</Text>
                 {item.discount > 0 &&
@@ -19,8 +20,10 @@ const CartItemComponent = ({ item }) => {
                     </Text>
                 }
             </View>
-            <CounterWidget onCart={item.quantity} 
-            // onAddToPurchase={onAddToPurchase} onRemoveFromPurchase={onRemoveFromPurchase} 
+            <CounterWidget 
+                onCart={item.quantity} 
+                onAddToPurchase={onAddToPurchase} 
+                onRemoveFromPurchase={onRemoveFromPurchase} 
             />
         </View>
     )

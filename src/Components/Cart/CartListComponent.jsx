@@ -1,15 +1,55 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { addToCart, removeProductFromCart } from '../../Redux/Slices/orderSlice'
 import CartItemComponent from './CartItemComponent'
 
-const CartListComponent = ({ product }) => {
+const CartListComponent = ({ item, updateItem, removeFromCart, addToItem, removeFromItem }) => {
+    const [product, setProduct] = useState(item)
+
+    useEffect(() => {
+        setProduct(item)
+    }, [item])
+    
+    const cartUpdate = () => {
+        updateItem(product)
+    }
+
+    const onAddToPurchase = (item) => {
+        addToItem(product, item.name)
+    }
+
+    const onRemoveFromPurchase = (item) => {
+        if (item.quantity === 1) {
+            onDeleteFromPurchase(item)
+        } else {
+            removeFromItem(product, item.name)
+        }
+    }
+
+    const onDeleteFromPurchase = (item) => {
+        if (product.sizes.length === 1) {
+            removeFromCart(product.id)
+        } else {
+            const newPurchase = product.sizes.filter(size => size.name !== item.name)
+            product.sizes = newPurchase
+            setProduct(product)
+            cartUpdate()
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.productTitle}>{product.name}</Text>
-            <FlatList 
-                data={product.sizes} 
-                keyExtractor={item => item.id} 
-                renderItem={({ item }) => (<CartItemComponent item={item} />)} />
+            <FlatList
+                data={product.sizes}
+                keyExtractor={item => item.name}
+                renderItem={({ item }) => (<CartItemComponent
+                    item={item}
+                    onAddToPurchase={() => onAddToPurchase(item)}
+                    onRemoveFromPurchase={() => onRemoveFromPurchase(item)}
+                    onDeleteFromPurchase={() => onDeleteFromPurchase(item)}
+                />)} />
         </View>
     )
 }
