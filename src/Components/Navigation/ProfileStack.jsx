@@ -2,7 +2,7 @@ import React from "react";
 import Header from '../Common/Header'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Profile from "../Screens/Profile";
+import Profile from "../Screens/ProfilePage";
 
 const Stack = createNativeStackNavigator()
 

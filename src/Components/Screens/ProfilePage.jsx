@@ -1,14 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { texts } from '../../Utils/Global/texts'
 import { colors } from '../../Utils/Global/colors'
 import IconButton from '../Common/Buttons/IconButton'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../Redux/Slices/userSlice'
 import localPersistence from '../../Services/localPersistenceService'
 
-const Profile = () => {
+const ProfilePage = () => {
     const dispatch = useDispatch()
+    const user = useSelector(state => state.userReducer.value)
+    console.log('🟩 user:', user);
+    const localUser = localPersistence.jsonGet('user')
+    console.log('🟩 localUser:', localUser);
 
     const onLogout = () => {
         localPersistence.clearStorage()
@@ -17,14 +21,16 @@ const Profile = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={texts.title}>Profile</Text>
-            <Text style={texts.subtitle}>Coming Soon</Text>
+            <Image source={{ uri: user.profileImage }} style={{ width: 100, height: 100, alignSelf: 'center' }} />
+            <Text style={texts.title}>User Profile</Text>
+            <Text style={texts.subtitle}>Name: {user.fullName}</Text>
+            <Text style={texts.subtitle}>Email: {user.email}</Text>
             <IconButton icon='logout' text='Logout' onPress={onLogout} />
         </View>
     )
 }
 
-export default Profile
+export default ProfilePage
 
 const styles = StyleSheet.create({
     container: {

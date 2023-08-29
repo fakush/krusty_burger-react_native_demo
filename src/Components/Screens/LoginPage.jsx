@@ -69,11 +69,13 @@ const LoginPage = ({ navigation }) => {
   useEffect(() => {
     if (resultSignIn.isSuccess) {
       setSignInResult(resultSignIn.data)
-      setUserInfo(getUserInfo(resultSignIn.dataidToken))
+      setUserInfo(getUserInfo(resultSignIn.data.idToken))
     }
   }, [resultSignIn])
 
   useEffect(() => {
+    console.log('🟩 userInfo: ')
+      console.log('🟩 userInfo: ', userInfo);
       dispatch(setUser({
         fullName: userInfo.fullName,
         email: signInResult.email,
