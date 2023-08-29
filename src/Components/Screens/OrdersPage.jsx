@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { texts } from '../../Utils/Global/texts'
 import { colors } from '../../Utils/Global/colors'
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart, removeProductFromCart } from '../../Redux/Slices/orderSlice';
+import { addToCart, removeProductFromCart, emptyCart } from '../../Redux/Slices/orderSlice';
 import CartListComponent from '../Cart/CartListComponent';
+import Button from '../Common/Buttons/DefaultButton';
 
 const Orders = () => {
     const { cartArray } = useSelector(state => state.ordersReducer.value)
@@ -26,15 +27,12 @@ const Orders = () => {
     }
 
     useEffect(() => {
-        console.log('🤖 cartArray: ', JSON.stringify(cartArray))
         setCart(cartArray)
     }, [cartArray])
 
     // Note: had to use this useEffect to calculate total, because synchronous code was not working.
     useEffect(() => {
-        setTimeout(() => {
-            calculateTotal()
-        }, 1000)
+        calculateTotal()
     }, [cart])
 
     const onUpdateItem = (item) => {
@@ -77,6 +75,11 @@ const Orders = () => {
         dispatch(addToCart(mutableItemToUpdate))
     }
 
+    const onPlaceOrder = () => {
+        setOrder({ cart, total })
+        dispatch(emptyCart())
+    }
+
     return (
         <>
             {
@@ -98,7 +101,7 @@ const Orders = () => {
                         </View>
                         <Text style={styles.total}>Grand Total: ${Math.round(total * 100) / 100}</Text>
                         <View style={styles.orderContainer}>
-                            <Text style={[texts.subtitle, styles.text]}>Order Button</Text>
+                            <Button text='Place Order' color={colors.primary} onPress={() => onPlaceOrder()} />
                         </View>
                     </View> :
                     <View style={styles.container}>

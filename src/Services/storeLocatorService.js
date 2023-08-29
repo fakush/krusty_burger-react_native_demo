@@ -60,7 +60,7 @@ function findClosestLocation(userLatitude, userLongitude, locationsData, searchR
     }
 }
 
-export default async function getClosestLocation(userLatitude, userLongitude) {
+export async function getClosestLocation(userLatitude, userLongitude) {
     // Calculate initial bounding box coordinates with a 5-kilometer radius
     const initialSearchRadius = 5;
     const latitudeDelta = initialSearchRadius / 111.2;
@@ -103,7 +103,16 @@ export default async function getClosestLocation(userLatitude, userLongitude) {
             if (closestLocation) {
                 return { closestLocation: closestLocation, storeList: dataList };
             } else {
-                return "No location found within 200 kilometers.";
+                return {
+                    closestLocation: {
+                        name: 'Krusty Oil Rig Store',
+                        description: 'There is a Krusty Store near you!',
+                        latitude: -34.452026,
+                        longitude: -58.468837,
+                        address: 'Krusty Oil Rig Store, first floor, Krusty Oil Rig, Kru',
+                        city: 'Caiman Islands',
+                    }, storeList: dataList
+                };
             }
         })
         .catch((error) => {
@@ -111,4 +120,27 @@ export default async function getClosestLocation(userLatitude, userLongitude) {
         });
 
     return response;
+}
+
+function degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+export function getDistance(lat1, lon1, lat2, lon2) {
+    console.log('lat1', lat1, 'lon1', lon1, 'lat2', lat2, 'lon2', lon2);
+    const earthRadiusKm = 6371; // Radius of the Earth in kilometers
+    const dLat = degreesToRadians(lat2 - lat1);
+    const dLon = degreesToRadians(lon2 - lon1);
+
+    lat1 = degreesToRadians(lat1);
+    lat2 = degreesToRadians(lat2);
+
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadiusKm * c;
+    console.log('distance', Number(distance.toFixed(2)));
+    return distance.toFixed(2);
 }

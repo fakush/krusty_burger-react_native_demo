@@ -10,6 +10,7 @@ import { colors } from '../../Utils/Global/colors';
 import IconButton from '../Common/Buttons/IconButton'
 import { texts } from '../../Utils/Global/texts';
 import localPersistence from '../../Services/localPersistenceService';
+import { Snackbar } from 'react-native-paper';
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const LoginPage = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorPassword, setErrorPassword] = useState('')
+  const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch()
   const [triggerSignIn, resultSignIn] = useSignInMutation();
@@ -47,6 +49,10 @@ const LoginPage = ({ navigation }) => {
     validatePassword()
   };
 
+  const onDismissSnackBar = () => {
+    setVisible(false)
+  };
+
   useEffect(() => {
     if (resultSignIn.isSuccess) {
       dispatch(setUser({
@@ -69,11 +75,14 @@ const LoginPage = ({ navigation }) => {
           longitude: "",
         }
       })
+    } else if (resultSignIn.isError) {
+      setVisible(true)
+      console.log('🟥 resultSignIn.error: ', resultSignIn.error);
     }
   }, [resultSignIn])
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps='handled'>
+    <View contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps='handled'>
       <View style={styles.container}>
         <Image style={styles.image} source={require('../../Assets/Icons/krusty-burger-logo-alt_500.png')} />
         <Text style={[texts.subtitle, styles.text]}>Login to continue</Text>
@@ -109,8 +118,16 @@ const LoginPage = ({ navigation }) => {
           <Text>Don't have an account?</Text>
           <IconButton icon='account-plus' text='Register' onPress={() => navigation.navigate("Signup")} />
         </View>
+        <Snackbar
+          style={styles.snackbar}
+          duration={1500}
+          visible={visible}
+          onDismiss={() => onDismissSnackBar()}
+        >
+          Invalid email or password, please try again.
+        </Snackbar>
       </View>
-    </ScrollView>
+    </View>
   )
 }
 
@@ -151,5 +168,10 @@ const styles = StyleSheet.create({
     color: '#c11f44',
     alignSelf: 'flex-start',
     paddingLeft: '10%',
+  },
+  snackbar: {
+    backgroundColor: colors.primary,
+    fontWeight: 'bold',
+    marginBottom: 80
   }
 })

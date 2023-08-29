@@ -1,60 +1,36 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-// import { usePostUserLocationMutation } from "../../Services/shopService";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLocation } from "../../Redux/Slices/userSlice";
 import { colors } from "../../Utils/Global/colors";
 import { EXPO_PUBLIC_GOOGLE_MAPS_API_KEY } from "@env";
 import MapComponent from "../Maps/MapComponent";
-import getStoreLocations from "../../Services/storeLocatorService"
-
-const google_maps_api_key = EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+import { getClosestLocation, getDistance } from "../../Services/storeLocatorService"
 
 const LocationSelector = ({ navigation }) => {
 
   const [location, setLocation] = useState({ latitude: "", longitude: "" });
   const [stores, setStores] = useState([]);
+  const [distance, setDistance] = useState(0);
   const [closestStore, setClosestStore] = useState({})
-
   const [error, setError] = useState("");
-
-  const [address, setAddress] = useState("");
-
-  // const [triggerPostUserLocation, resultPostUserLocation] = usePostUserLocationMutation()
-  const { localId } = useSelector(state => state.userReducer.value)
-  const dispatch = useDispatch()
-
-  const onConfirmAddress = () => {
-    const locationFormatted = {
-      latitude: location.latitude,
-      longitude: location.longitude,
-      address
-    }
-
-    dispatch(setUserLocation(
-      locationFormatted
-    ))
-
-    triggerPostUserLocation({
-      location: locationFormatted,
-      localId
-    })
-
-    // navigation.goBack()
-  }
-
+  
   //Location requested on mount
   useEffect(() => {
     (async () => {
       try {
-        let { status } = await Location.requestForegroundPermissionsAsync();
+        const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
           setError("Permission to access location was denied");
           return;
         }
-
-        let location = await Location.getCurrentPositionAsync({});
+        const location = await Location.getCurrentPositionAsync({});
+        // There is a bug in the emulator that returns "lat itude" instead of "latitude" in the response.
+        if (location.coords.latitude === undefined) {
+          console.log('🟥 location payload error: ', location.coords);
+          throw new Error('Location payload error')
+        }
         setLocation({
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
@@ -67,18 +43,18 @@ const LocationSelector = ({ navigation }) => {
     })()
   }, [])
 
-  //Reverse geocoding
+  //Reverse geocoding 
   useEffect(() => {
     (async () => {
       try {
-        if (location.latitude) {
-          const storeObject = await getStoreLocations(location.latitude, location.longitude)
+        if (location.latitude ) {
+          const storeObject = await getClosestLocation(location.latitude, location.longitude)
           const closestStoreData = {
-            latlng: { 
+            latlng: {
               latitude: storeObject.closestLocation.coordinates.latitude,
               longitude: storeObject.closestLocation.coordinates.longitude
-            }, 
-            title: storeObject.closestLocation.name, 
+            },
+            title: storeObject.closestLocation.name,
             description: storeObject.closestLocation.address,
             latitude: storeObject.closestLocation.coordinates.latitude,
             longitude: storeObject.closestLocation.coordinates.longitude,
@@ -86,6 +62,7 @@ const LocationSelector = ({ navigation }) => {
             city: storeObject.closestLocation.city,
             name: storeObject.closestLocation.name,
           }
+          console.log('🟢 closestStoreData: ', closestStoreData);
           setClosestStore(closestStoreData)
           const storeList = storeObject.storeList.map((store) => {
             return {
@@ -99,18 +76,37 @@ const LocationSelector = ({ navigation }) => {
           setStores(storeList)
         }
       } catch (error) {
+        // Hardcoded data because of Google Maps API key error "lat itude" instead of "latitude" in emulator.
+        setClosestStore({
+          name: 'Krusty Oil Rig Store',
+          description: 'There is a Krusty Store near you!',
+          latitude: -34.452026,
+          longitude: -58.468837,
+          address: 'Krusty Oil Rig Store, first floor, Krusty Oil Rig, Kru',
+          city: 'Caiman Islands',
+        })
+        console.log('🟥 reverse geocoding error: ', error.message);
         setError(error.message);
       }
     })();
   }, [location]);
 
+  useEffect(() => {    
+    if (closestStore.latitude) {
+      const storeDistance = getDistance(location.latitude, location.longitude, closestStore.latitude, closestStore.longitude)
+      console.log('🟢 storeDistance: ', storeDistance);
+      setDistance(Number(storeDistance))
+    }
+  }, [closestStore])
+
   return (
     <View style={styles.container}>
       <MapComponent location={location} closestStore={closestStore} storeList={stores} />
-      {location.latitude && <Text style={styles.text}>Lat: {location.latitude}, long: {location.longitude}.</Text>}
+      {/* {location.latitude && <Text style={styles.text}>Lat: {location.latitude}, long: {location.longitude}.</Text>} */}
       {closestStore.address && <>
-        <Text style={styles.text}>Closest store: {closestStore.address}, {closestStore.city}.</Text> 
-        <Text style={styles.text}>Store name: {closestStore.name}.</Text> 
+        <Text style={styles.text}>Closest store: {closestStore.address}, {closestStore.city}.</Text>
+        <Text style={styles.text}>Store name: {closestStore.name}.</Text>
+        <Text style={styles.text}>Distance: {distance} km.</Text>
       </>}
       {stores.length > 0 && <Text style={styles.text}>Stores: {stores.length}.</Text>}
     </View>
