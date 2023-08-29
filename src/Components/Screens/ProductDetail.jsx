@@ -20,10 +20,11 @@ export default function ProductDetails({ navigation, route }) {
     const cartItem = cartArray.find(item => item.id === product.id)
     if (cartItem) {
       const newPurchase = purchase.map(purchaseItem => {
-        const cartSize = cartItem.sizes.find(size => size.name === purchaseItem.name)
-        if (cartSize) {
-          purchaseItem.quantity = cartSize.quantity
-        }
+        cartItem.sizes.forEach(size => {
+          if (purchaseItem.name === size.name) {
+            purchaseItem = size
+          }
+        })
         return purchaseItem
       })
       setPurchase(newPurchase)
@@ -44,7 +45,8 @@ export default function ProductDetails({ navigation, route }) {
   }
 
   const onAddToPurchase = (item) => {
-    const newPurchase = purchase.map(purchaseItem => {
+    const newPurchase = [...purchase]
+      newPurchase.forEach(purchaseItem => {
       if (purchaseItem.name === item.name) {
         purchaseItem.quantity += 1
       }
@@ -54,7 +56,8 @@ export default function ProductDetails({ navigation, route }) {
   }
 
   const onRemoveFromPurchase = (item) => {
-    const newPurchase = purchase.map(purchaseItem => {
+    const newPurchase = [...purchase]
+      newPurchase.forEach(purchaseItem => {
       if (purchaseItem.name === item.name && purchaseItem.quantity > 0) {
         purchaseItem.quantity -= 1
       }

@@ -24,14 +24,17 @@ const Orders = () => {
         })
         setTotal(total)
     }
-    
+
     useEffect(() => {
+        console.log('🤖 cartArray: ', JSON.stringify(cartArray))
         setCart(cartArray)
     }, [cartArray])
 
     // Note: had to use this useEffect to calculate total, because synchronous code was not working.
     useEffect(() => {
-        calculateTotal()
+        setTimeout(() => {
+            calculateTotal()
+        }, 1000)
     }, [cart])
 
     const onUpdateItem = (item) => {
@@ -43,30 +46,31 @@ const Orders = () => {
     }
 
     const onAddToItem = (item, name) => {
-        console.log(item);
-        // const newCart = cart.map(product => {
-        //     if (product.id === item.id) {
-        //         product.sizes.map(size => {
-        //             if (size.name === name) {
-        //                 size.quantity += 1
-        //             }
-        //             return size
-        //         })
-        //     }
-        //     return product
-        // })
-        // dispatch(addToCart(newCart))
+        const newSizesArray = []
+        const itemToUpdate = cart.find(product => product.id === item.id)
+        itemToUpdate.sizes.forEach(size => {
+            if (size.name === name) {
+                const newSize = { ...size, quantity: size.quantity + 1 }
+                size = newSize
+            }
+            newSizesArray.push(size)
+        })
+        itemToUpdate.sizes = newSizesArray
+        dispatch(addToCart(item))
     }
 
     const onRemoveFromItem = (item, name) => {
-        console.log(item);
-        // const newCart = cart.map(product => {
-        //     if (product.id === item.id) {
-        //         product.quantity -= 1
-        //     }
-        //     return product
-        // })
-        // dispatch(addToCart(newCart))
+        const newSizesArray = []
+        const itemToUpdate = cart.find(product => product.id === item.id)
+        itemToUpdate.sizes.forEach(size => {
+            if (size.name === name) {
+                const newSize = { ...size, quantity: size.quantity - 1 }
+                size = newSize
+            }
+            newSizesArray.push(size)
+        })
+        itemToUpdate.sizes = newSizesArray
+        dispatch(addToCart(item))
     }
 
     return (
@@ -77,16 +81,16 @@ const Orders = () => {
                         <Image style={styles.banner} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/jeremy_500.png?alt=media&token=44754387-4b34-4fd4-a92f-396d97fef47b' }} resizeMode='cover' />
                         <Text style={[texts.subtitle, styles.text]}>Your Order Details</Text>
                         <View style={styles.cartContainer}>
-                            <FlatList 
-                                    data={cart} 
-                                    keyExtractor={item => item.id} 
-                                    renderItem={({ item }) => (<CartListComponent 
-                                                                        item={item} 
-                                                                        updateItem={onUpdateItem}
-                                                                        removeFromCart={onRemoveFromCart}
-                                                                        addToItem={onAddToItem}
-                                                                        removeFromItem={onRemoveFromItem}
-                                                                        />)} />
+                            <FlatList
+                                data={cart}
+                                keyExtractor={item => item.id}
+                                renderItem={({ item }) => (<CartListComponent
+                                    item={item}
+                                    updateItem={onUpdateItem}
+                                    removeFromCart={onRemoveFromCart}
+                                    addToItem={onAddToItem}
+                                    removeFromItem={onRemoveFromItem}
+                                />)} />
                         </View>
                         <Text style={styles.total}>Grand Total: ${Math.round(total * 100) / 100}</Text>
                         <View style={styles.orderContainer}>
