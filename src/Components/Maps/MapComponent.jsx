@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Image, Text, View, Platform } from 'react-native'
 import React from 'react'
-// import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { useState, useEffect } from 'react';
 
 const markerImageLand = require('../../Assets/Icons/krusty-store_150.png')
@@ -25,22 +25,24 @@ const RenderMap = ({ location, closestStore, storeList }) => {
     }, [location, storeList, closestStore])
 
   return (
-    <></>
-    // <MapView
-    //   style={styles.container}
-    //   initialRegion={region}
-    //   region={region}
-    // >
-    //   {markers.map((markers, index) => (
-    //     <Marker
-    //       key={index}
-    //       coordinate={markers.latlng}
-    //       title={markers.title}
-    //       description={markers.description}
-    //       image={markerImage}
-    //     />
-    //   ))}
-    // </MapView>
+    <>{ Platform.OS === 'web' ?
+        <Image resizeMode='cover' style={styles.image} source={{uri: "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/krusty_map_500.jpg?alt=media&token=fa10ec18-819c-48f0-a7a8-2f483d762e00"}} /> :
+      <MapView
+      style={styles.container}
+      initialRegion={region}
+      region={region}
+    >
+      {markers.map((markers, index) => (
+        <Marker
+          key={index}
+          coordinate={markers.latlng}
+          title={markers.title}
+          description={markers.description}
+          image={markerImage}
+        />
+      ))}
+    </MapView>
+    }</>
   )
 }
 
@@ -50,5 +52,13 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '50%',
-  }
+  },
+  image: {
+    marginTop: 15,
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
+    borderTopLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
 })
