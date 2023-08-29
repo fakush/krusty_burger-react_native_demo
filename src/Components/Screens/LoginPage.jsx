@@ -10,6 +10,7 @@ import { colors } from '../../Utils/Global/colors';
 import IconButton from '../Common/Buttons/IconButton'
 import { texts } from '../../Utils/Global/texts';
 import localPersistence from '../../Services/localPersistenceService';
+import { useGetUserInfoQuery } from '../../Services/shopService';
 import { Snackbar } from 'react-native-paper';
 
 const LoginPage = ({ navigation }) => {
@@ -19,6 +20,8 @@ const LoginPage = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorPassword, setErrorPassword] = useState('')
   const [visible, setVisible] = useState(false);
+  const [signInResult, setSignInResult] = useState({})
+  const [userInfo, setUserInfo] = useState({})
 
   const dispatch = useDispatch()
   const [triggerSignIn, resultSignIn] = useSignInMutation();
@@ -53,36 +56,50 @@ const LoginPage = ({ navigation }) => {
     setVisible(false)
   };
 
+  const getUserInfo = async (idToken) => {
+    try {
+      const result = await useGetUserInfoQuery(idToken)
+      console.log('🟩 result: ', result);
+      return result.data
+    } catch (error) {
+      setVisible(true)
+    }
+  }
+
   useEffect(() => {
     if (resultSignIn.isSuccess) {
+      setSignInResult(resultSignIn.data)
+      setUserInfo(getUserInfo(resultSignIn.dataidToken))
+    }
+  }, [resultSignIn])
+
+  useEffect(() => {
       dispatch(setUser({
-        email: resultSignIn.data.email,
-        idToken: resultSignIn.data.idToken,
-        localId: resultSignIn.data.localId,
-        profileImage: "",
+        fullName: userInfo.fullName,
+        email: signInResult.email,
+        idToken: signInResult.idToken,
+        localId: signInResult.localId,
+        profileImage: userInfo.profileImage,
         location: {
           latitude: "",
           longitude: "",
         }
       }))
       localPersistence.jsonSave('user', {
-        email: resultSignIn.data.email,
-        idToken: resultSignIn.data.idToken,
-        localId: resultSignIn.data.localId,
-        profileImage: "",
+        fullName: userInfo.fullName,
+        email: signInResult.email,
+        idToken: signInResult.idToken,
+        localId: signInResult.localId,
+        profileImage: userInfo.profileImage,
         location: {
           latitude: "",
           longitude: "",
         }
       })
-    } else if (resultSignIn.isError) {
-      setVisible(true)
-      console.log('🟥 resultSignIn.error: ', resultSignIn.error);
-    }
-  }, [resultSignIn])
+  }, [userInfo])
 
   return (
-    <View contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps='handled'>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps='handled'>
       <View style={styles.container}>
         <Image style={styles.image} source={require('../../Assets/Icons/krusty-burger-logo-alt_500.png')} />
         <Text style={[texts.subtitle, styles.text]}>Login to continue</Text>
@@ -127,7 +144,7 @@ const LoginPage = ({ navigation }) => {
           Invalid email or password, please try again.
         </Snackbar>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

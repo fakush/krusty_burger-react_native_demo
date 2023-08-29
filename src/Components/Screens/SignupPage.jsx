@@ -9,8 +9,13 @@ import { colors } from '../../Utils/Global/colors';
 import IconButton from '../Common/Buttons/IconButton'
 import { texts } from '../../Utils/Global/texts';
 import { useSignUpMutation } from '../../Services/authService';
+import { usePostUserInfoMutation } from '../../Services/shopService';
+import { Snackbar } from 'react-native-paper';
+import { faker } from '@faker-js/faker'
 
 const SignupPage = ({ navigation }) => {
+  const [fullName, setFullName] = useState('');
+  const [errorFullName, setErrorFullName] = useState('')
   const [email, setEmail] = useState('');
   const [errorEmail, setErrorEmail] = useState('')
   const [password, setPassword] = useState('');
@@ -18,28 +23,69 @@ const SignupPage = ({ navigation }) => {
   const [errorPassword, setErrorPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorConfirmPassword, setErrorConfirmPassword] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [signUpResult, setSignUpResult] = useState({})
+  const ref_email = useRef()
   const ref_password = useRef()
   const ref_passwordMatch = useRef()
 
   const [triggerSignUp, result] = useSignUpMutation()
+  const [triggerPostUserInfo, resultPostUserInfo] = usePostUserInfoMutation()
+
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const avatar = faker.image.avatar()
     if (result.isSuccess) {
+      setSignUpResult(result.data)
+      try {
+        triggerPostUserInfo({
+          idToken: result.data.idToken,
+          fullName: fullName,
+          email: email,
+          location: {
+            latitude: "",
+            longitude: "",
+          },
+          profileImage: avatar,
+        })
+      } catch (err) {
+        setVisible(true)
+        console.log('🟥 signup error: ', err.message);
+      }
+    } else if (result.isError) {
+      setVisible(true)
+      console.log('🟥 Signup error: ', result.error.message);
+    }
+  }, [result])
+
+  useEffect(() => {
+    if (resultPostUserInfo.isSuccess) {
       dispatch(
         setUser({
-          email: result.data.email,
-          idToken: result.data.idToken,
-          localId: result.data.localId,
-          profileImage: "",
+          fullName: resultPostUserInfo.data.fullName,
+          email: signUpResult.email,
+          idToken: signUpResult.idToken,
+          localId: signUpResult.localId,
+          profileImage: resultPostUserInfo.data.profileImage,
           location: {
             latitude: "",
             longitude: "",
           },
         })
       )
+    } else if (result.isError) {
+      setVisible(true)
+      console.log('🟥 Signup error: ', result.error.message);
     }
-  }, [result])
+  }, [resultPostUserInfo])
+
+  const validateFullName = () => {
+    const isValidFullName = fullName !== ""
+    if (!isValidFullName && fullName !== "") setErrorFullName('Full name is required')
+    else setErrorFullName('')
+    return isValidFullName
+  }
 
   const validateEmail = () => {
     const isValidVariableEmail = isValidEmail(email)
@@ -62,10 +108,9 @@ const SignupPage = ({ navigation }) => {
     return isRepeatedPasswordCorrect
   }
 
-
   const onSubmit = () => {
     try {
-      if (validateEmail() && validatePassword() && validatePasswordMatch()) {
+      if (validateFullName() && validateEmail() && validatePassword() && validatePasswordMatch()) {
         const request = {
           email,
           password,
@@ -73,14 +118,19 @@ const SignupPage = ({ navigation }) => {
         }
         triggerSignUp(request)
       } else {
+        if (fullName === "") setErrorFullName('Full name is required')
         if (email === "") setErrorEmail('Email is required')
         if (password === "") setErrorPassword('Password is required')
         if (confirmPassword === "") setErrorConfirmPassword('Password confirmation is required')
       }
     } catch (err) {
-      console.log('🟥 Catch error');
+      setVisible(true)
       console.log('🟥 signup error: ', err.message);
     }
+  };
+
+  const onDismissSnackBar = () => {
+    setVisible(false)
   };
 
   return (
@@ -89,6 +139,18 @@ const SignupPage = ({ navigation }) => {
         <Image style={styles.image} source={require('../../Assets/Icons/krusty-splash-alt_500.png')} />
         <Text style={[texts.subtitle, styles.text]}>SignUp</Text>
         <TextInput
+          style={styles.input}
+          mode="outlined"
+          label="Full Name"
+          value={fullName}
+          onChangeText={(fullName) => setFullName(fullName)}
+          onSubmitEditing={() => { ref_email.current.focus() }}
+          onBlur={validateFullName}
+          error={errorFullName}
+        />
+        {errorFullName && <Text style={styles.error}>{errorFullName}</Text>}
+        <TextInput
+          ref={ref_email}
           style={styles.input}
           mode="outlined"
           label="Email"
@@ -134,6 +196,14 @@ const SignupPage = ({ navigation }) => {
           <Text>Already have an account?</Text>
           <IconButton icon='account-plus' text='Login' onPress={() => navigation.navigate("Login")} />
         </View>
+        <Snackbar
+          style={styles.snackbar}
+          duration={1500}
+          visible={visible}
+          onDismiss={() => onDismissSnackBar()}
+        >
+          SignUp Error, please try again.
+        </Snackbar>
       </View>
     </ScrollView>
   )

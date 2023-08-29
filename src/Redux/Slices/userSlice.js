@@ -4,7 +4,7 @@ import localPersistence from "../../Services/localPersistenceService";
 export const userActions = createSlice({
     name: "User",
     initialState: {
-        value: { email: "", idToken: "", localId: "", profileImage: "", location: { latitude: "", longitude: "", address: "" } }
+        value: { fullName: "", email: "", idToken: "", localId: "", profileImage: "", location: { latitude: "", longitude: "", address: "" } }
     },
     reducers: {
         setUser: (state, action) => {
@@ -12,6 +12,7 @@ export const userActions = createSlice({
         },
         signOut: (state) => {
             state.value = {
+                fullName: "",
                 email: "",
                 idToken: "",
                 localId: "",
@@ -23,9 +24,6 @@ export const userActions = createSlice({
                 },
             }
         },
-        saveImage: (state, action) => {
-            state.value.profileImage = action.payload
-        },
         setUserLocation: (state, action) => {
             state.value.location = action.payload
         }
@@ -35,7 +33,6 @@ export const userActions = createSlice({
 export const {
     setUser,
     signOut,
-    saveImage,
     setUserLocation
 } = userActions.actions
 

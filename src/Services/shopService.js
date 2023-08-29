@@ -41,6 +41,20 @@ export const shopApi = createApi({
                 body: order
             })
         }),
+        getUserInfo: builder.query({
+            query: (tokenId) => `Krusty_users.json?orderBy="tokenId"&equalTo=${tokenId}`,
+            transformResponse: (response) => {
+                const userTransformed = Object.values(response).pop()
+                return (userTransformed)
+            }
+        }),
+        postUserInfo: builder.mutation({
+            query: (user) => ({
+                url: `Krusty_users.json`,
+                method: `POST`,
+                body: user
+            })
+        }),
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
             try {
                 const result = await queryFulfilled;
@@ -59,4 +73,6 @@ export const {
     useGetProductByIdQuery,
     useGetCartHistoryQuery,
     usePostCartMutation,
+    useGetUserInfoQuery,
+    usePostUserInfoMutation
 } = shopApi

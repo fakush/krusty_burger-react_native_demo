@@ -77,7 +77,7 @@ const Orders = () => {
 
     const onPlaceOrder = () => {
         setOrder({ cart, total })
-        dispatch(emptyCart())
+        // dispatch(emptyCart())
     }
 
     return (
