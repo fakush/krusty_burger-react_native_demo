@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import MapView, { Marker } from 'react-native-maps';
+// import MapView, { Marker } from 'react-native-maps';
 import { useState, useEffect } from 'react';
 
 const markerImageLand = require('../../Assets/Icons/krusty-store_150.png')
@@ -25,21 +25,22 @@ const RenderMap = ({ location, closestStore, storeList }) => {
     }, [location, storeList, closestStore])
 
   return (
-    <MapView
-      style={styles.container}
-      initialRegion={region}
-      region={region}
-    >
-      {markers.map((markers, index) => (
-        <Marker
-          key={index}
-          coordinate={markers.latlng}
-          title={markers.title}
-          description={markers.description}
-          image={markerImage}
-        />
-      ))}
-    </MapView>
+    // <MapView
+    //   style={styles.container}
+    //   initialRegion={region}
+    //   region={region}
+    // >
+    //   {markers.map((markers, index) => (
+    //     <Marker
+    //       key={index}
+    //       coordinate={markers.latlng}
+    //       title={markers.title}
+    //       description={markers.description}
+    //       image={markerImage}
+    //     />
+    //   ))}
+    // </MapView>
+    <></>
   )
 }
 

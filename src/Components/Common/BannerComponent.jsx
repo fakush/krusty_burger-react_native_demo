@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
+// import Carousel from 'react-native-reanimated-carousel';
 import bannerArray from '../../Data/bannerArray';
 import { shadows } from '../../Utils/Global/shadows';
 
@@ -8,7 +8,7 @@ const BannerComponent = () => {
     const width = Dimensions.get('window').width;
     return (
         <View style={{ flex: 1 }}>
-            <Carousel
+            {/* <Carousel
                 loop
                 width={width}
                 height={width / 2}
@@ -21,7 +21,7 @@ const BannerComponent = () => {
                         <Image style={styles.image} source={{uri: bannerArray[index]}} />
                     </View>
                 )}
-            />
+            /> */}
         </View>
     );
 }
