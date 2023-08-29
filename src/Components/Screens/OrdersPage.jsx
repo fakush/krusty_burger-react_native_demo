@@ -47,6 +47,7 @@ const Orders = () => {
 
     const onAddToItem = (item, name) => {
         const newSizesArray = []
+        // this object is still read-only for web, but it works on mobile.
         const itemToUpdate = cart.find(product => product.id === item.id)
         itemToUpdate.sizes.forEach(size => {
             if (size.name === name) {
@@ -55,12 +56,14 @@ const Orders = () => {
             }
             newSizesArray.push(size)
         })
-        itemToUpdate.sizes = newSizesArray
-        dispatch(addToCart(item))
+        const mutableItemToUpdate = { ...itemToUpdate }
+        mutableItemToUpdate.sizes = newSizesArray
+        dispatch(addToCart(mutableItemToUpdate))
     }
 
     const onRemoveFromItem = (item, name) => {
         const newSizesArray = []
+        // this object is still read-only for web, but it works on mobile.
         const itemToUpdate = cart.find(product => product.id === item.id)
         itemToUpdate.sizes.forEach(size => {
             if (size.name === name) {
@@ -69,8 +72,9 @@ const Orders = () => {
             }
             newSizesArray.push(size)
         })
-        itemToUpdate.sizes = newSizesArray
-        dispatch(addToCart(item))
+        const mutableItemToUpdate = { ...itemToUpdate }
+        mutableItemToUpdate.sizes = newSizesArray
+        dispatch(addToCart(mutableItemToUpdate))
     }
 
     return (
