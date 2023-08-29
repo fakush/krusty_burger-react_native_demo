@@ -56,11 +56,11 @@ const LoginPage = ({ navigation }) => {
     setVisible(false)
   };
 
-  const getUserInfo = async (idToken) => {
+  const getUserInfo = async (localId) => {
     try {
-      const result = await useGetUserInfoQuery(idToken)
-      console.log('🟩 result: ', result);
-      return result.data
+      const { data: userInfo, isError, isLoading } = useGetUserInfoQuery(localId)
+      console.log('🟩 result: ', userInfo);
+      return await userInfo
     } catch (error) {
       setVisible(true)
     }
@@ -69,13 +69,14 @@ const LoginPage = ({ navigation }) => {
   useEffect(() => {
     if (resultSignIn.isSuccess) {
       setSignInResult(resultSignIn.data)
-      setUserInfo(getUserInfo(resultSignIn.data.idToken))
+      const userInfo = getUserInfo(resultSignIn.data.localId)
+      setUserInfo(userInfo)
     }
   }, [resultSignIn])
 
   useEffect(() => {
     console.log('🟩 userInfo: ')
-      console.log('🟩 userInfo: ', userInfo);
+      console.log('🟩 userInfo:', userInfo);
       dispatch(setUser({
         fullName: userInfo.fullName,
         email: signInResult.email,

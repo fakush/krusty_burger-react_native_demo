@@ -21,7 +21,7 @@ const ProfilePage = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={{ uri: user.profileImage }} style={{ width: 100, height: 100, alignSelf: 'center' }} />
+            <Image source={{ uri: user.profileImage }} style={{ width: 200, height: 200, borderRadius: 100, alignSelf: 'center' }} />
             <Text style={texts.title}>User Profile</Text>
             <Text style={texts.subtitle}>Name: {user.fullName}</Text>
             <Text style={texts.subtitle}>Email: {user.email}</Text>

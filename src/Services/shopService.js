@@ -42,7 +42,7 @@ export const shopApi = createApi({
             })
         }),
         getUserInfo: builder.query({
-            query: (tokenId) => `Krusty_users.json?orderBy="tokenId"&equalTo=${tokenId}`,
+            query: (localId) => `Krusty_users.json?orderBy="localId"&equalTo=${localId}`,
             transformResponse: (response) => {
                 const userTransformed = Object.values(response).pop()
                 return (userTransformed)

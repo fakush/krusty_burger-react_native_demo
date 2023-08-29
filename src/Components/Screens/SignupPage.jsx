@@ -12,6 +12,7 @@ import { useSignUpMutation } from '../../Services/authService';
 import { usePostUserInfoMutation } from '../../Services/shopService';
 import { Snackbar } from 'react-native-paper';
 import { faker } from '@faker-js/faker'
+import localPersistence from '../../Services/localPersistenceService';
 
 const SignupPage = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -31,16 +32,16 @@ const SignupPage = ({ navigation }) => {
 
   const [triggerSignUp, result] = useSignUpMutation()
   const [triggerPostUserInfo, resultPostUserInfo] = usePostUserInfoMutation()
+  const avatar = faker.image.avatar()
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const avatar = faker.image.avatar()
     if (result.isSuccess) {
       setSignUpResult(result.data)
       try {
         triggerPostUserInfo({
-          idToken: result.data.idToken,
+          localId: result.data.localId,
           fullName: fullName,
           email: email,
           location: {
@@ -61,24 +62,24 @@ const SignupPage = ({ navigation }) => {
 
   useEffect(() => {
     if (resultPostUserInfo.isSuccess) {
-      dispatch(
-        setUser({
-          fullName: resultPostUserInfo.data.fullName,
-          email: signUpResult.email,
-          idToken: signUpResult.idToken,
-          localId: signUpResult.localId,
-          profileImage: resultPostUserInfo.data.profileImage,
-          location: {
-            latitude: "",
-            longitude: "",
-          },
-        })
-      )
-    } else if (result.isError) {
-      setVisible(true)
-      console.log('🟥 Signup error: ', result.error.message);
-    }
-  }, [resultPostUserInfo])
+      const user = {
+        fullName: fullName,
+        email: signUpResult.email,
+        idToken: signUpResult.idToken,
+        localId: signUpResult.localId,
+        profileImage: avatar,
+        location: {
+          latitude: "",
+          longitude: "",
+        },
+      }
+      localPersistence.jsonSave('user', user)
+      dispatch(setUser(user))
+      } else if (result.isError) {
+        setVisible(true)
+        console.log('🟥 Signup error: ', result.error.message);
+      }
+    }, [resultPostUserInfo])
 
   const validateFullName = () => {
     const isValidFullName = fullName !== ""
