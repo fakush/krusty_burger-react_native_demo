@@ -13,6 +13,7 @@ const MainMenu = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
+      {/* Banner is not shown in web */}
       <BannerComponent />
       </View>
       <View style={styles.categoriesList}>
