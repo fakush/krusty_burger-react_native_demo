@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { usePostUserLocationMutation } from "../../Services/shopService";
+// import { usePostUserLocationMutation } from "../../Services/shopService";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLocation } from "../../Redux/Slices/userSlice";
 import { colors } from "../../Utils/Global/colors";
@@ -21,7 +21,7 @@ const LocationSelector = ({ navigation }) => {
 
   const [address, setAddress] = useState("");
 
-  const [triggerPostUserLocation, resultPostUserLocation] = usePostUserLocationMutation()
+  // const [triggerPostUserLocation, resultPostUserLocation] = usePostUserLocationMutation()
   const { localId } = useSelector(state => state.userReducer.value)
   const dispatch = useDispatch()
 
