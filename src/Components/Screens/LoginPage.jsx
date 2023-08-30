@@ -20,9 +20,7 @@ const LoginPage = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorPassword, setErrorPassword] = useState('')
   const [visible, setVisible] = useState(false);
-  const [signInResult, setSignInResult] = useState({})
-  const [userInfo, setUserInfo] = useState({})
-
+  
   const dispatch = useDispatch()
   const [triggerSignIn, resultSignIn] = useSignInMutation();
 
@@ -56,50 +54,34 @@ const LoginPage = ({ navigation }) => {
     setVisible(false)
   };
 
-  const getUserInfo = async (localId) => {
-    try {
-      const { data: userInfo, isError, isLoading } = useGetUserInfoQuery(localId)
-      console.log('🟩 result: ', userInfo);
-      return await userInfo
-    } catch (error) {
-      setVisible(true)
-    }
-  }
-
   useEffect(() => {
     if (resultSignIn.isSuccess) {
-      setSignInResult(resultSignIn.data)
-      const userInfo = getUserInfo(resultSignIn.data.localId)
-      setUserInfo(userInfo)
-    }
-  }, [resultSignIn])
-
-  useEffect(() => {
-    console.log('🟩 userInfo: ')
-      console.log('🟩 userInfo:', userInfo);
       dispatch(setUser({
-        fullName: userInfo.fullName,
-        email: signInResult.email,
-        idToken: signInResult.idToken,
-        localId: signInResult.localId,
-        profileImage: userInfo.profileImage,
+        fullName: "",
+        email: resultSignIn.data.email,
+        idToken: resultSignIn.data.idToken,
+        localId: resultSignIn.data.localId,
+        profileImage: "",
         location: {
           latitude: "",
           longitude: "",
         }
       }))
       localPersistence.jsonSave('user', {
-        fullName: userInfo.fullName,
-        email: signInResult.email,
-        idToken: signInResult.idToken,
-        localId: signInResult.localId,
-        profileImage: userInfo.profileImage,
+        fullName: "",
+        email: resultSignIn.data.email,
+        idToken: resultSignIn.data.idToken,
+        localId: resultSignIn.data.localId,
+        profileImage: "",
         location: {
           latitude: "",
           longitude: "",
         }
       })
-  }, [userInfo])
+    } else if (resultSignIn.isError){
+      setVisible(true)
+    }
+  }, [resultSignIn])
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} keyboardShouldPersistTaps='handled'>

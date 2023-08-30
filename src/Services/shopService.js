@@ -41,7 +41,7 @@ export const shopApi = createApi({
                 body: order
             })
         }),
-        getUserInfo: builder.query({
+        getUserByLocalId: builder.query({
             query: (localId) => `Krusty_users.json?orderBy="localId"&equalTo=${localId}`,
             transformResponse: (response) => {
                 const userTransformed = Object.values(response).pop()
@@ -73,6 +73,6 @@ export const {
     useGetProductByIdQuery,
     useGetCartHistoryQuery,
     usePostCartMutation,
-    useGetUserInfoQuery,
+    useGetUserByLocalIdQuery,
     usePostUserInfoMutation
 } = shopApi

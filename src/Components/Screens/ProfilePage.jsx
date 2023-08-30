@@ -1,18 +1,47 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { texts } from '../../Utils/Global/texts'
 import { colors } from '../../Utils/Global/colors'
 import IconButton from '../Common/Buttons/IconButton'
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../Redux/Slices/userSlice'
 import localPersistence from '../../Services/localPersistenceService'
+import { useGetUserByLocalIdQuery } from '../../Services/shopService'
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.userReducer.value)
-    console.log('🟩 user:', user);
-    const localUser = localPersistence.jsonGet('user')
-    console.log('🟩 localUser:', localUser);
+    const [userData, setUserData] = useState(user)
+
+    // const getLocalUser = async () => {
+    //     const localUser = await localPersistence.jsonGet('user')
+    //     console.log('🟩 localUser:', localUser);
+    //     user = localUser
+    // }
+    
+    // useEffect(() => {
+    //     getLocalUser()
+    // }, [])
+
+    const { data: userInfo, isError, isLoading } = useGetUserByLocalIdQuery(user.localId)
+    
+    useEffect(() => {
+        if (userInfo) {
+            const usr = {
+                fullName: userInfo.fullName,
+                email: user.email,
+                idToken: user.idToken,
+                localId: user.localId,
+                profileImage: userInfo.profileImage,
+                location: {
+                    latitude: "",
+                    longitude: "",
+                }
+            }
+            setUserData(usr)
+        }
+    }, [userInfo])
+
 
     const onLogout = () => {
         localPersistence.clearStorage()
@@ -21,10 +50,10 @@ const ProfilePage = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={{ uri: user.profileImage }} style={{ width: 200, height: 200, borderRadius: 100, alignSelf: 'center' }} />
+            {user.ProfileImage && <Image source={{ uri: userData.profileImage }} style={{ width: 200, height: 200, borderRadius: 100, alignSelf: 'center' }} />}
             <Text style={texts.title}>User Profile</Text>
-            <Text style={texts.subtitle}>Name: {user.fullName}</Text>
-            <Text style={texts.subtitle}>Email: {user.email}</Text>
+            <Text style={texts.subtitle}>Name: {userData.fullName}</Text>
+            <Text style={texts.subtitle}>Email: {userData.email}</Text>
             <IconButton icon='logout' text='Logout' onPress={onLogout} />
         </View>
     )
