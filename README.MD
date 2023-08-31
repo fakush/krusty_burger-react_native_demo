@@ -53,14 +53,35 @@ To run the Krusty Burger App on your local machine, follow these steps:
 
 5. Follow the Expo CLI instructions to open the app on your Android or iOS device or emulator.
 
+## Building for Development Testing
+Follow these steps for development testing build:
+
+```shell
+npm install -g eas-cli
+```
+
+If you haven´t already install EAS client and login.
+
+```shell
+eas build -p [platform*] --profile [profile*]
+```
+
 ## Building for Production
 When you're ready to build the app for production, you can use the following Expo CLI command:
 
 ```shell
-expo build:[platform]
+npm install -g eas-cli
 ```
 
-Replace [platform] with the target platform (e.g., android or ios). This will guide you through the process of building a standalone APK or IPA file.
+If you haven´t already install EAS client and login.
+
+```shell
+eas build -p [platform*]
+```
+
+*Replace [platform] with the target platform (e.g., android or ios). This will guide you through the process of building a standalone APK or IPA file.
+
+*Replace [profile] with the target configuration profile (e.g., preview).
 
 ## Credits
 
