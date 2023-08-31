@@ -1,27 +1,43 @@
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
-// import Carousel from 'react-native-reanimated-carousel';
+import Carousel from 'react-native-snap-carousel';
 import bannerArray from '../../Data/bannerArray';
 import { shadows } from '../../Utils/Global/shadows';
 
 const BannerComponent = () => {
+    const isCarousel = React.useRef(null)
     const width = Dimensions.get('window').width;
+
+    const SLIDER_WIDTH = Dimensions.get('window').width + 80
+    const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
+
+    const CarouselCardItem = ({ item, index }) => {
+        return (
+            <View style={styles.container} key={index}>
+                <Image
+                    source={{ uri: item.url }}
+                    style={styles.image}
+                />
+            </View>
+        )
+    }
+
     return (
         <View style={{ flex: 1 }}>
-            {/* <Carousel
-                loop
-                width={width}
-                height={width / 2}
-                autoPlay={true}
+            <Carousel
+                layout="default"
+                layoutCardOffset={9}
+                ref={isCarousel}
                 data={bannerArray}
-                scrollAnimationDuration={1900}
-                // onSnapToItem={(index) => console.log('current index:', index)}
-                renderItem={({ index }) => (
-                    <View style={styles.container}>
-                        <Image style={styles.image} source={{uri: bannerArray[index]}} />
-                    </View>
-                )}
-            /> */}
+                renderItem={CarouselCardItem}
+                sliderWidth={width}
+                itemWidth={width}
+                inactiveSlideShift={0}
+                useScrollView={true}
+                autoplayInterval={4000}
+                autoplay={true}
+                loop={true}
+            />
         </View>
     );
 }

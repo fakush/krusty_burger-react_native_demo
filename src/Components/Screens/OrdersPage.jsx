@@ -44,12 +44,14 @@ const Orders = () => {
     })
 
     useEffect(() => {
-        if (countDown < 90 && countDown > 60) {
+        if (countDown < 91 && countDown > 61) {
             setOrderStep(0)
-        } else if (countDown < 60 && countDown > 30) {
+        } else if (countDown < 60 && countDown > 31) {
             setOrderStep(1)
-        } else {
+        } else if (countDown < 30 && countDown > 1) {
             setOrderStep(2)
+        } else if (countDown == 0){
+            setOrder({})
         }
         const interval = setInterval(takeOneSecond, 1000);
         return () => clearInterval(interval);
@@ -96,8 +98,9 @@ const Orders = () => {
     }
 
     const onPlaceOrder = () => {
+        console.log('🤖 Order launched'); 
+        setOrder({ cart: {}, total: 5 })
         setCountDown(90)
-        setOrder({ cart, total })
         // dispatch(emptyCart())
     }
 
@@ -161,7 +164,7 @@ const Orders = () => {
     }
 
     return (
-        <>{cart.length > 0 ? CartView() : order.total ? orderView() : emptyCartView()}</>
+        <>{order.total ? orderView() : cart.length > 0 ? CartView() : emptyCartView()}</>
     )
 }
 

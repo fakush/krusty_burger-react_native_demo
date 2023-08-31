@@ -1,8 +1,8 @@
 [
-    "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-01.png?alt=media&token=d69861c1-8484-4e44-8a0f-7f692dcd9619",
-    "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-02.png?alt=media&token=b9c47401-ee90-4dcc-8172-f9b8bf53d9f3",
-    "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-03.png?alt=media&token=7d1a9cea-74aa-4e4d-b543-3150da62ce4d",
-    "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-04.png?alt=media&token=aa12d311-cf31-4756-ba30-5077ac4a6f96",
-    "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-05.png?alt=media&token=fc1f5272-2693-4e50-99e1-82f8d8d903ef",
-    "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-06.png?alt=media&token=36a01acf-e1cb-46ec-bd20-1c69117682c0"
+    {"url": "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-01.png?alt=media&token=d69861c1-8484-4e44-8a0f-7f692dcd9619"},
+    {"url": "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-02.png?alt=media&token=b9c47401-ee90-4dcc-8172-f9b8bf53d9f3"},
+    {"url": "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-03.png?alt=media&token=7d1a9cea-74aa-4e4d-b543-3150da62ce4d"},
+    {"url": "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-04.png?alt=media&token=aa12d311-cf31-4756-ba30-5077ac4a6f96"},
+    {"url": "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-05.png?alt=media&token=fc1f5272-2693-4e50-99e1-82f8d8d903ef"},
+    {"url": "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/textBanner-06.png?alt=media&token=36a01acf-e1cb-46ec-bd20-1c69117682c0"}
 ]
