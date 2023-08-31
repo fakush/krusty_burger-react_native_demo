@@ -58,7 +58,6 @@ const LocationSelector = ({ navigation }) => {
             city: storeObject.closestLocation.city,
             name: storeObject.closestLocation.name,
           }
-          console.log('🟢 closestStoreData: ', closestStoreData);
           setClosestStore(closestStoreData)
           const storeList = storeObject.storeList.map((store) => {
             return {
@@ -90,7 +89,6 @@ const LocationSelector = ({ navigation }) => {
   useEffect(() => {    
     if (closestStore.latitude) {
       const storeDistance = getDistance(location.latitude, location.longitude, closestStore.latitude, closestStore.longitude)
-      console.log('🟢 storeDistance: ', storeDistance);
       setDistance(Number(storeDistance))
     }
   }, [closestStore])

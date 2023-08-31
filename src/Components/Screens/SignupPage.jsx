@@ -73,7 +73,7 @@ const SignupPage = ({ navigation }) => {
           longitude: "",
         },
       }
-      localPersistence.jsonSave('user', user)
+      localPersistence.saveJson('user', user)
       dispatch(setUser(user))
       } else if (result.isError) {
         setVisible(true)

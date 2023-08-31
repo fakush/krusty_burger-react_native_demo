@@ -14,7 +14,7 @@ const ProfilePage = () => {
     const [userData, setUserData] = useState(user)
 
     // const getLocalUser = async () => {
-    //     const localUser = await localPersistence.jsonGet('user')
+    //     const localUser = await localPersistence.getJson('user')
     //     console.log('🟩 localUser:', localUser);
     //     user = localUser
     // }

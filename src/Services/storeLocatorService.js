@@ -127,7 +127,6 @@ function degreesToRadians(degrees) {
 }
 
 export function getDistance(lat1, lon1, lat2, lon2) {
-    console.log('lat1', lat1, 'lon1', lon1, 'lat2', lat2, 'lon2', lon2);
     const earthRadiusKm = 6371; // Radius of the Earth in kilometers
     const dLat = degreesToRadians(lat2 - lat1);
     const dLon = degreesToRadians(lon2 - lon1);
@@ -141,6 +140,5 @@ export function getDistance(lat1, lon1, lat2, lon2) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const distance = earthRadiusKm * c;
-    console.log('distance', Number(distance.toFixed(2)));
     return distance.toFixed(2);
 }

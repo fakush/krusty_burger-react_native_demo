@@ -67,7 +67,7 @@ const LoginPage = ({ navigation }) => {
           longitude: "",
         }
       }))
-      localPersistence.jsonSave('user', {
+      localPersistence.saveJson('user', {
         fullName: "",
         email: resultSignIn.data.email,
         idToken: resultSignIn.data.idToken,

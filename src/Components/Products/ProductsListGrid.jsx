@@ -13,11 +13,11 @@ const ProductsListGrid = ({navigation}) => {
 
     useEffect(() => {
         if (data) {
-            localPersistence.jsonSave('products', data)
+            localPersistence.saveJson('products', data)
             dispatch(setAllProducts(data))
             setProducts(data)
         } else {
-            localPersistence.jsonGet('products').then((data) => {
+            localPersistence.getJson('products').then((data) => {
                 dispatch(setAllProducts(data))
                 setProducts(data)
             })

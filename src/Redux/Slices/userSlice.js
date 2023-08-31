@@ -37,7 +37,7 @@ export const {
 } = userActions.actions
 
 export const getLocalUserData = () => async (dispatch) => {
-        const dataFromStorage = await localPersistence.jsonGet('user')
+        const dataFromStorage = await localPersistence.getJson('user')
         if (dataFromStorage) { dispatch(setUser(dataFromStorage)) } 
 };
 

@@ -15,7 +15,6 @@ const Tab = createBottomTabNavigator()
 
 export default function Navigator() {
     const { email } = useSelector(state => state.userReducer.value)
-    console.log('🟩 LoggedUser? :', email);
 
     return (
         <SafeAreaView style={styles.container} >

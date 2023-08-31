@@ -6,40 +6,34 @@ class LocalPersistence {
     }
 
     async save(key, value) {
-        // console.log('🟩 persistence: ', key, value);
         try {
             await this.storage.setItem(key, value);
-            // return console.log('🟩 persistence response: ', await AsyncStorage.getItem(key));
         } catch (error) {
             return console.log('🟥 save persistence error: ', error); 
         }
     }
 
-    async jsonSave(key, value) {
+    async saveJson(key, value) {
         try {
             const jsonValue = JSON.stringify(value);
-            // console.log('🟩 persistence data: ', key, jsonValue);
             await AsyncStorage.setItem(key, jsonValue);
-            // return console.log('🟩 persistence response: ', await AsyncStorage.getItem(key));
         } catch (error) {
-            return console.log('🟥 jsonSave persistence error: ', error);
+            return console.log('🟥 saveJson persistence error: ', error);
         }
     }
 
     async get(key) {
         try {
             const value = await this.storage.getItem(key);
-            // console.log('🟩 get persistence: ', key, value);
             return value;
         } catch (error) {
             return console.log('🟥 get persistence error: ', error); 
         }
     }
 
-    async jsonGet(key) {
+    async getJson(key) {
         try {
             const jsonValue = await AsyncStorage.getItem(key);
-            // console.log('🟩 get json persistence: ', key, jsonValue);
             return jsonValue != null ? JSON.parse(jsonValue) : null;
         } catch (error) {
             return console.log('🟥 json get persistence error: ', error);
