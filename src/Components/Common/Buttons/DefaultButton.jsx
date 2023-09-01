@@ -1,5 +1,5 @@
 import { StyleSheet, Text, Pressable } from 'react-native'
-import { IconButton } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import React from 'react'
 
 const DefaultButton = ({ icon, color, text, onPress }) => {
@@ -8,7 +8,7 @@ const DefaultButton = ({ icon, color, text, onPress }) => {
             style={[{ backgroundColor: color }, styles.buttonStyle]}
             onPress={onPress}
         >
-            {icon && <IconButton icon={icon} size={20} containerColor={color} iconColor='black' />}
+            {icon && <Icon name={icon} size={20} color='white' />}
             <Text style={styles.textStyle}>{text}</Text>
         </Pressable>
     )
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     textStyle: {
-        color: 'black',
+        color: 'white',
         fontWeight: 'bold',
     }
 })

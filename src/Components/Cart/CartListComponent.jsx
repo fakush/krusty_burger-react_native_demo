@@ -1,8 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { addToCart, removeProductFromCart } from '../../Redux/Slices/orderSlice'
 import CartItemComponent from './CartItemComponent'
+import { colors } from '../../Utils/Global/colors'
 
 const CartListComponent = ({ item, updateItem, removeFromCart, addToItem, removeFromItem }) => {
     const [product, setProduct] = useState(item)
@@ -59,14 +58,14 @@ export default CartListComponent
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        borderColor: "#772A2B",
+        borderColor: colors.secondaryAccent,
         borderWidth: 1,
         borderRadius: 15,
         padding: 5,
         marginBottom: 5,
     },
     productTitle: {
-        color: "#772A2B",
+        color: colors.secondaryAccent,
         fontWeight: 'bold',
         fontSize: 15,
         paddingLeft: 10,

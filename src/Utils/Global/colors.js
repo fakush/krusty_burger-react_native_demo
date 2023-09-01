@@ -2,7 +2,7 @@ export const colors = {
     primary: "#FF914F",
     primaryAccent: "#e85a13",
     secondary: "#FFFFFF",
-    secondaryAccent: "#c11f44",
+    secondaryAccent: "#772A2B",
     success: "#B6FFB6",
     warning: "#FFD6B6",
     dark: "#000000",

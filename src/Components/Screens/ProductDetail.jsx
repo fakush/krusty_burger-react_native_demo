@@ -1,5 +1,5 @@
 import { FlatList, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors } from '../../Utils/Global/colors'
 import { texts } from '../../Utils/Global/texts';
 import ProductSizeCard from '../Products/ProductSizeCard';
@@ -28,7 +28,7 @@ export default function ProductDetails({ navigation, route }) {
         return purchaseItem
       })
       setPurchase(newPurchase)
-    } 
+    }
   }, [cartArray])
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function ProductDetails({ navigation, route }) {
 
   const onAddToPurchase = (item) => {
     const newPurchase = [...purchase]
-      newPurchase.forEach(purchaseItem => {
+    newPurchase.forEach(purchaseItem => {
       if (purchaseItem.name === item.name) {
         purchaseItem.quantity += 1
       }
@@ -57,7 +57,7 @@ export default function ProductDetails({ navigation, route }) {
 
   const onRemoveFromPurchase = (item) => {
     const newPurchase = [...purchase]
-      newPurchase.forEach(purchaseItem => {
+    newPurchase.forEach(purchaseItem => {
       if (purchaseItem.name === item.name && purchaseItem.quantity > 0) {
         purchaseItem.quantity -= 1
       }
@@ -97,22 +97,24 @@ export default function ProductDetails({ navigation, route }) {
           <FlatList
             data={product.sizes}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (<ProductSizeCard 
-                                          item={item} 
-                                          onCart={getItemsOnCart(item)} 
-                                          onAddToPurchase={() => onAddToPurchase(item)} 
-                                          onRemoveFromPurchase={() => onRemoveFromPurchase(item)} />)}
+            renderItem={({ item }) => (<ProductSizeCard
+              item={item}
+              onCart={getItemsOnCart(item)}
+              onAddToPurchase={() => onAddToPurchase(item)}
+              onRemoveFromPurchase={() => onRemoveFromPurchase(item)} />)}
           />
         </View>
       </View>
-      <Text style={[texts.subtitle, styles.total]}>Total: {Math.round(purchaseTotal * 100) / 100}</Text>
-      <DefaultButton icon={'cart'} text='Add to Cart' color={colors.primary} onPress={() => onAddToCart()} />
-      <Snackbar 
+      <View style={styles.addToCart}>
+        <Text style={[texts.subtitle, styles.total]}>Total: {Math.round(purchaseTotal * 100) / 100}</Text>
+        <DefaultButton icon={'cart'} text='Add to Cart' color={colors.primary} onPress={() => onAddToCart()} />
+      </View>
+      <Snackbar
         style={styles.snackbar}
         duration={1000}
         visible={visible}
         onDismiss={() => goToMainMenu()}
-        >
+      >
         Item(s) added to cart!
       </Snackbar>
     </View>
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     alignItems: 'center',
     paddingTop: 10,
-    paddingBottom: 60,
+    marginBottom: 60,
   },
   detailsContainer: {
     flex: 1,
@@ -141,19 +143,19 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 300,
+    height: 230,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
   },
   text: {
-    color: "#772A2B",
+    color: colors.secondaryAccent,
     fontWeight: 'bold',
   },
   purchaseOptions: {
     paddingTop: 10,
   },
   total: {
-    color: "#772A2B",
+    color: colors.secondaryAccent,
     fontWeight: 'bold',
     fontSize: 20,
     alignSelf: 'flex-end',
@@ -161,8 +163,13 @@ const styles = StyleSheet.create({
   },
   snackbar: {
     backgroundColor: colors.primary,
-    fontWeight: 'bold', 
-    marginBottom: 80
+    fontWeight: 'bold',
+  },
+  addToCart: {
+    width: '100%',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-around',
+    alignContent: 'center',
   }
 
 })

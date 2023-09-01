@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     NavigationContainer: {
-        marginBottom: 50,
+        marginBottom: 60,
     },
     tabBar: {
         backgroundColor: colors.primary,

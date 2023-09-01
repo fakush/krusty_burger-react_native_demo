@@ -3,7 +3,7 @@ import React from 'react'
 import { texts } from '../../Utils/Global/texts'
 import { colors } from '../../Utils/Global/colors'
 import CounterWidget from '../Common/Buttons/CounterWidget'
-import { IconButton } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const ProductSizeCard = ({ item, onCart, onAddToPurchase, onRemoveFromPurchase }) => {
     const itemPrice = item.discount > 0 ? item.price - (item.price * item.discount) : item.price
@@ -14,7 +14,7 @@ const ProductSizeCard = ({ item, onCart, onAddToPurchase, onRemoveFromPurchase }
                 <Text style={styles.text}>${Math.round(itemPrice * 100) / 100}</Text>
                 {item.discount > 0 &&
                     <Text style={styles.discount}>
-                        <IconButton icon='sale' size={15} containerColor='green' iconColor='white' />
+                        <Icon name='sale' size={15} color='green' />
                         {item.discount * 100}
                     </Text>
                 }

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../Redux/Slices/userSlice'
 import localPersistence from '../../Services/localPersistenceService'
 import { useGetUserByLocalIdQuery } from '../../Services/shopService'
+import { colors } from '../../Utils/Global/colors';
 
 const ProfilePage = () => {
     const dispatch = useDispatch()
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignContent: 'center',
         justifyContent: 'center',
-        marginBottom: 50
+        marginBottom: 60
     },
     profileImage: {
         paddingTop: 30,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     userText: {
-        color: "#772A2B",
+        color: colors.secondaryAccent,
         textAlign: "center",
     },
     logoutButton: {

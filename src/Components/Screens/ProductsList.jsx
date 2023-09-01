@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: colors.secondary,
         padding: 10,
-        paddingBottom: 60,
+        marginBottom: 60,
     },
     image: {
         width: '100%',
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
     },
     text: {
-        color: "#772A2B",
+        color: colors.secondaryAccent,
         fontWeight: 'bold',
     },
 })
