@@ -10,7 +10,6 @@ import { colors } from '../../Utils/Global/colors';
 import IconButton from '../Common/Buttons/IconButton'
 import { texts } from '../../Utils/Global/texts';
 import localPersistence from '../../Services/localPersistenceService';
-import { useGetUserInfoQuery } from '../../Services/shopService';
 import { Snackbar } from 'react-native-paper';
 
 const LoginPage = ({ navigation }) => {
@@ -56,7 +55,7 @@ const LoginPage = ({ navigation }) => {
 
   useEffect(() => {
     if (resultSignIn.isSuccess) {
-      dispatch(setUser({
+      const signedUser = {
         fullName: "",
         email: resultSignIn.data.email,
         idToken: resultSignIn.data.idToken,
@@ -66,18 +65,9 @@ const LoginPage = ({ navigation }) => {
           latitude: "",
           longitude: "",
         }
-      }))
-      localPersistence.saveJson('user', {
-        fullName: "",
-        email: resultSignIn.data.email,
-        idToken: resultSignIn.data.idToken,
-        localId: resultSignIn.data.localId,
-        profileImage: "",
-        location: {
-          latitude: "",
-          longitude: "",
-        }
-      })
+      }
+      dispatch(setUser(signedUser))
+      localPersistence.saveJson('user', signedUser)
     } else if (resultSignIn.isError){
       setVisible(true)
     }
@@ -155,6 +145,7 @@ const styles = StyleSheet.create({
   input: {
     width: "80%",
     marginTop: 10,
+    backgroundColor: colors.secondary,
   },
   button: {
     marginTop: 20,

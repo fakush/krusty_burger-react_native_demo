@@ -21,14 +21,14 @@ export const shopApi = createApi({
             }
         }),
         getProductById: builder.query({
-            query: (productId) => `products.json?orderBy="id"&equalTo=${productId}`,
+            query: (productId) => `products.json?orderBy="id"&equalTo="${productId}"`,
             transformResponse: (response) => {
                 const productTransformed = Object.values(response).pop()
                 return (productTransformed)
             }
         }),
         getCartHistory: builder.query({
-            query: (userId) => `krusty_orders.json?orderBy="userId"&equalTo=${userId}`,
+            query: (userId) => `krusty_orders.json?orderBy="userId"&equalTo="${userId}"`,
             transformResponse: (response) => {
                 const productTransformed = Object.values(response).pop()
                 return (productTransformed)
@@ -42,7 +42,7 @@ export const shopApi = createApi({
             })
         }),
         getUserByLocalId: builder.query({
-            query: (localId) => `Krusty_users.json?orderBy="localId"&equalTo=${localId}`,
+            query: (localId) => `krusty_users.json?orderBy="localId"&equalTo="${localId}"`,
             transformResponse: (response) => {
                 const userTransformed = Object.values(response).pop()
                 return (userTransformed)
@@ -50,7 +50,7 @@ export const shopApi = createApi({
         }),
         postUserInfo: builder.mutation({
             query: (user) => ({
-                url: `Krusty_users.json`,
+                url: `krusty_users.json`,
                 method: `POST`,
                 body: user
             })

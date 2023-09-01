@@ -1,3 +1,4 @@
+import './ignoreWarnings'
 import { useFonts } from 'expo-font';
 import { fonts } from './src/Utils/Global/fonts';
 import Navigator from './src/Components/Navigation/Navigator';

@@ -1,15 +1,11 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import { Dimensions, StyleSheet, View, Image, Platform } from 'react-native';
+// import Carousel from 'react-native-snap-carousel';
 import bannerArray from '../../Data/bannerArray';
-import { shadows } from '../../Utils/Global/shadows';
 
 const BannerComponent = () => {
     const isCarousel = React.useRef(null)
     const width = Dimensions.get('window').width;
-
-    const SLIDER_WIDTH = Dimensions.get('window').width + 80
-    const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7)
 
     const CarouselCardItem = ({ item, index }) => {
         return (
@@ -24,20 +20,26 @@ const BannerComponent = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Carousel
-                layout="default"
-                layoutCardOffset={9}
-                ref={isCarousel}
-                data={bannerArray}
-                renderItem={CarouselCardItem}
-                sliderWidth={width}
-                itemWidth={width}
-                inactiveSlideShift={0}
-                useScrollView={true}
-                autoplayInterval={4000}
-                autoplay={true}
-                loop={true}
-            />
+            {/* {Platform.OS === 'android' ?
+                <Carousel
+                    layout="default"
+                    layoutCardOffset={9}
+                    ref={isCarousel}
+                    data={bannerArray}
+                    renderItem={CarouselCardItem}
+                    sliderWidth={width}
+                    itemWidth={width}
+                    inactiveSlideShift={0}
+                    useScrollView={true}
+                    autoplayInterval={4000}
+                    autoplay={true}
+                    loop={true}
+                /> : */}
+                <Image
+                    source={{ uri: bannerArray[0].url }}
+                    style={styles.image}
+                />
+                {/* } */}
         </View>
     );
 }

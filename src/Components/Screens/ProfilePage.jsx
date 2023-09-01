@@ -22,10 +22,12 @@ const ProfilePage = () => {
     // useEffect(() => {
     //     getLocalUser()
     // }, [])
-
     const { data: userInfo, isError, isLoading } = useGetUserByLocalIdQuery(user.localId)
     
     useEffect(() => {
+        console.log('userInfo: ',userInfo);
+        console.log('isError: ', isError);
+        console.log('isLoading: ', isLoading);
         if (userInfo) {
             const usr = {
                 fullName: userInfo.fullName,
@@ -40,7 +42,7 @@ const ProfilePage = () => {
             }
             setUserData(usr)
         }
-    }, [userInfo])
+    }, [userInfo, isError, isLoading])
 
 
     const onLogout = () => {

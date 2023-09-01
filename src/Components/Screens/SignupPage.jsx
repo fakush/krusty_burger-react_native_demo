@@ -41,6 +41,7 @@ const SignupPage = ({ navigation }) => {
       setSignUpResult(result.data)
       try {
         triggerPostUserInfo({
+          id: result.data.localId,
           localId: result.data.localId,
           fullName: fullName,
           email: email,
@@ -232,6 +233,7 @@ const styles = StyleSheet.create({
   input: {
     width: "80%",
     marginTop: 10,
+    backgroundColor: colors.secondary,
   },
   button: {
     marginTop: 20,
