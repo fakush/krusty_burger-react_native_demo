@@ -1,21 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Icon } from 'react-native-elements'
+import { IconButton } from 'react-native-paper'
 import { texts } from '../../../Utils/Global/texts'
-import { color } from 'react-native-elements/dist/helpers'
 
-export default function TabIcon({icon, color, text}) {
+export default function TabIcon({ icon, color, text }) {
   return (
     <View>
-        <Icon name={icon} size={24} type='material-community' color={color} />
-      <Text style={[texts.secondary, styles.text, {color: color}]}>{text}</Text>
+      <IconButton icon={icon} size={24} containerColor={color} iconColor='white' />
+      <Text style={[texts.secondary, styles.text, { color: color }]}>{text}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-    text: {
-        textAlign: 'center',
-        fontSize: 12,
-    }
+  text: {
+    textAlign: 'center',
+    fontSize: 12,
+  }
 })

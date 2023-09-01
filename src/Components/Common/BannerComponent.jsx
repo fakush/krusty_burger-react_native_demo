@@ -20,7 +20,7 @@ const BannerComponent = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            {/* {Platform.OS === 'android' ?
+            {Platform.OS === 'android' ?
                 <Carousel
                     layout="default"
                     layoutCardOffset={9}
@@ -34,12 +34,12 @@ const BannerComponent = () => {
                     autoplayInterval={4000}
                     autoplay={true}
                     loop={true}
-                /> : */}
+                /> :
                 <Image
                     source={{ uri: bannerArray[0].url }}
                     style={styles.image}
                 />
-                {/* } */}
+            }
         </View>
     );
 }

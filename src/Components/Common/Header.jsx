@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { texts } from '../../Utils/Global/texts'
-import { colors } from 'react-native-elements'
 
 const Header = () => {
   return (

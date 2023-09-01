@@ -1,10 +1,9 @@
 import { StyleSheet, Text, Pressable } from 'react-native'
 import React from 'react'
-import CardComponent from '../Common/CardComponent'
 import { texts } from '../../Utils/Global/texts'
 import { useDispatch } from 'react-redux'
 import { setCategorySelected } from '../../Redux/Slices/productSlice'
-import { Icon } from 'react-native-elements'
+import { IconButton } from 'react-native-paper'
 import { colors } from '../../Utils/Global/colors'
 
 const CategoryItem = ({ item, navigation }) => {
@@ -17,7 +16,7 @@ const CategoryItem = ({ item, navigation }) => {
 
   return (
     <Pressable onPress={onSelectCategory} style={styles.container}>
-      <Icon name={item.icon} type="material-community" size={30} color={colors.primary} />
+      <IconButton icon={item.icon} size={30} containerColor={colors.primary} iconColor='white' />
       <Text style={[texts.secondary, styles.Text]}>{item.name}</Text>
     </Pressable>
   )
