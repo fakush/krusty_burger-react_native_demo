@@ -5,7 +5,7 @@ import { colors } from '../../Utils/Global/colors'
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeProductFromCart, emptyCart } from '../../Redux/Slices/orderSlice';
 import CartListComponent from '../Cart/CartListComponent';
-import Button from '../Common/Buttons/DefaultButton';
+import IconButton from '../Common/Buttons/IconButton'
 import { faker } from '@faker-js/faker';
 import { Snackbar } from 'react-native-paper';
 import { usePostCartMutation } from '../../Services/shopService';
@@ -172,7 +172,9 @@ const Orders = () => {
             <View style={styles.container}>
                 <Image style={styles.banner} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/Krusty_500.jpg?alt=media&token=20d2bfc4-c078-4dae-b356-8322fb629724' }} resizeMode='cover' />
                 <Text style={[styles.text, styles.cartEmpty]}>Your Cart is Empty</Text>
-                <Text style={[styles.text, styles.cartEmpty]}>Get back when you have money, you rat.</Text>
+                <View style={styles.message}>
+                    <Text style={[styles.text, styles.cartEmpty]}>Get back when you have money, you rat.</Text>
+                </View>
                 <Snackbar style={styles.snackbar} duration={2500} visible={visible} onDismiss={() => setVisible(false)}>{snackMessage}</Snackbar>
             </View>
         )
@@ -197,7 +199,7 @@ const Orders = () => {
                 </View>
                 <Text style={styles.total}>Grand Total: ${Math.round(total * 100) / 100}</Text>
                 <View style={styles.orderContainer}>
-                    <Button text='Place Order' color={colors.primary} onPress={() => onPlaceOrder()} />
+                    <IconButton style={styles.logoutButton} icon='cash' text='Place Order' onPress={() => onPlaceOrder()} />
                 </View>
                 <Snackbar style={styles.snackbar} duration={2500} visible={visible} onDismiss={() => setVisible(false)}>{snackMessage}</Snackbar>
             </View>
@@ -255,4 +257,12 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 5,
     },
+    message: {
+        alignSelf: 'center',
+        width: '90%',
+        height: '50%',
+        borderColor: colors.primary,
+        borderWidth: 2,
+        borderRadius: 20,
+    }
 })

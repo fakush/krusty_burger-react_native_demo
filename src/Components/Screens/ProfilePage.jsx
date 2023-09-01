@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { texts } from '../../Utils/Global/texts'
-import { colors } from '../../Utils/Global/colors'
 import IconButton from '../Common/Buttons/IconButton'
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../Redux/Slices/userSlice'
@@ -13,21 +12,9 @@ const ProfilePage = () => {
     const user = useSelector(state => state.userReducer.value)
     const [userData, setUserData] = useState(user)
 
-    // const getLocalUser = async () => {
-    //     const localUser = await localPersistence.getJson('user')
-    //     console.log('🟩 localUser:', localUser);
-    //     user = localUser
-    // }
-    
-    // useEffect(() => {
-    //     getLocalUser()
-    // }, [])
     const { data: userInfo, isError, isLoading } = useGetUserByLocalIdQuery(user.localId)
-    
+
     useEffect(() => {
-        console.log('userInfo: ',userInfo);
-        console.log('isError: ', isError);
-        console.log('isLoading: ', isLoading);
         if (userInfo) {
             const usr = {
                 fullName: userInfo.fullName,
@@ -52,11 +39,15 @@ const ProfilePage = () => {
 
     return (
         <View style={styles.container}>
-            {user.ProfileImage && <Image source={{ uri: userData.profileImage }} style={{ width: 200, height: 200, borderRadius: 100, alignSelf: 'center' }} />}
-            <Text style={texts.title}>User Profile</Text>
-            <Text style={texts.subtitle}>Name: {userData.fullName}</Text>
-            <Text style={texts.subtitle}>Email: {userData.email}</Text>
-            <IconButton icon='logout' text='Logout' onPress={onLogout} />
+            <View style={styles.flexContainer}>
+                <Image source={{ uri: `${userData.profileImage || 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/banner3_500.png?alt=media&token=ad452555-133e-4c26-b566-6590280c2d8c'}` }} style={styles.profileImage} />
+            </View>
+            <View style={styles.flexContainer}>
+                <Text style={[texts.title, styles.userText]}>User Profile</Text>
+                <Text style={[texts.subtitle, styles.userText]}>Name: {userData.fullName}</Text>
+                <Text style={[texts.subtitle, styles.userText]}>Email: {userData.email}</Text>
+            </View>
+            <IconButton style={styles.logoutButton} icon='logout' text='Logout' onPress={onLogout} />
         </View>
     )
 }
@@ -67,9 +58,31 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        backgroundColor: colors.primaryAccent,
         padding: 10,
         alignContent: 'center',
         justifyContent: 'center',
+        marginBottom: 50
+    },
+    profileImage: {
+        paddingTop: 30,
+        paddingBottom: 20,
+        width: 250,
+        height: 250,
+        borderRadius: 125,
+        alignSelf: "center",
+    },
+    flexContainer: {
+        flex: 1,
+        width: '100%',
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    userText: {
+        color: "#772A2B",
+        textAlign: "center",
+    },
+    logoutButton: {
+        flex: 1,
+        width: "50%"
     }
 })

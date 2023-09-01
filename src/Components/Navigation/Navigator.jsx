@@ -51,10 +51,10 @@ export default function Navigator() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     NavigationContainer: {
-        paddingBottom: 50,
+        marginBottom: 50,
     },
     tabBar: {
         backgroundColor: colors.primary,
