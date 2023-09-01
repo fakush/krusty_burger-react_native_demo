@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "start-c": "expo start --clear",
     "postinstall": "chmod +x ./postinstall.sh && ./postinstall.sh"
+    
   },
   "icon": "./assets/app_icon.png",
   "dependencies": {

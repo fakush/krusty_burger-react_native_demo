@@ -7,3 +7,4 @@ module.exports = async function (env, argv) {
   config.resolve.alias['expo-asset'] = 'expo-asset-web';
   return config;
 };
+
