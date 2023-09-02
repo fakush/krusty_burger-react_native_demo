@@ -32,7 +32,7 @@ const SignupPage = ({ navigation }) => {
 
   const [triggerSignUp, result] = useSignUpMutation()
   const [triggerPostUserInfo, resultPostUserInfo] = usePostUserInfoMutation()
-  const avatar = faker.image.avatar()
+  const avatar = faker.image.people(300,300)
 
   const dispatch = useDispatch()
 

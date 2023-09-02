@@ -44,7 +44,7 @@ const ProfilePage = () => {
                 <Image source={{ uri: `${userData.profileImage || 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/banner3_500.png?alt=media&token=ad452555-133e-4c26-b566-6590280c2d8c'}` }} style={styles.profileImage} />
             </View>
             <View style={styles.flexContainer}>
-                <Text style={[texts.title, styles.userText]}>User Profile</Text>
+                <Text style={[styles.userText, texts.title]}>User Profile</Text>
                 <Text style={[texts.subtitle, styles.userText]}>Name: {userData.fullName}</Text>
                 <Text style={[texts.subtitle, styles.userText]}>Email: {userData.email}</Text>
             </View>
@@ -76,11 +76,13 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        gap: 15,
     },
     userText: {
         color: colors.secondaryAccent,
         textAlign: "center",
+        fontSize: 18,
     },
     logoutButton: {
         flex: 1,

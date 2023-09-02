@@ -58,7 +58,7 @@ const Orders = () => {
             setOrderStep(1)
         } else if (countDown < 30 && countDown > 1) {
             setOrderStep(2)
-        } else if (countDown == 0){
+        } else if (countDown == 0) {
             setOrder({})
             setShowOrderView(false)
             setSnackMessage('Your order was feed to the dogs, better luck next time.')
@@ -123,19 +123,21 @@ const Orders = () => {
         try {
             triggerPostCartMutation(payload)
         } catch (err) {
-            console.log('🟥 signup error: ', err.message);
+            console.log('🟥 post order error: ', err.message);
         }
     }
 
     const onPlaceOrder = () => {
-        const orderObject = { id: faker.string.uuid(), 
-                                    phrase: `${faker.word.noun()}-${faker.word.noun()}-${faker.word.noun()}`, 
-                                    localId: user.localId, 
-                                    user: { 
-                                        email: user.email, 
-                                        fullName: user.fullName 
-                                    }, cart: cartArray, 
-                                    total: total }
+        const orderObject = {
+            id: faker.string.uuid(),
+            phrase: `${faker.word.noun()}-${faker.word.noun()}-${faker.word.noun()}`,
+            localId: user.localId,
+            user: {
+                email: user.email,
+                fullName: user.fullName
+            }, cart: cartArray,
+            total: total
+        }
         setOrder(orderObject)
         sendOrderToDb(orderObject)
     }
@@ -146,22 +148,27 @@ const Orders = () => {
                 {orderStep === 0 ?
                     <>
                         <Image style={styles.banner} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/order.png?alt=media&token=7279f1d9-c068-48f6-9c0d-f39b7b67f1f5' }} resizeMode='cover' />
-                        <Text style={[styles.text, styles.cartEmpty]}>Your Order is in progress</Text>
-                        <Text style={[styles.text, styles.cartEmpty]}>Your order Will be ready in 00:{(countDown - 60).toString().padStart(2, '0')} seconds.</Text>
+                        <Text style={[styles.text, styles.cartTitle]}>Your Order is in progress</Text>
+                        <Text style={[styles.text, styles.cartEmptyBody]}>Your order Will be ready in 00:{(countDown - 60).toString().padStart(2, '0')} seconds.</Text>
                     </> : orderStep === 1 ?
                         <>
                             <Image style={styles.banner} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/order_ready.png?alt=media&token=f78dd62b-0e06-444e-acae-888bba829840' }} resizeMode='cover' />
-                            <Text style={[styles.text, styles.cartEmpty]}>Your Order is ready</Text>
-                            <Text style={[styles.text, styles.cartEmpty]}>You have 00:{(countDown - 30).toString().padStart(2, '0')} seconds to get it or well trow it to the garbage.</Text>
+                            <Text style={[styles.text, styles.cartTitle]}>Your Order is ready</Text>
+                            <Text style={[styles.text, styles.cartEmptyBody]}>You have 00:{(countDown - 30).toString().padStart(2, '0')} seconds to get it or well trow it to the garbage.</Text>
                         </> :
                         <>
                             <Image style={styles.banner} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/order_trash.png?alt=media&token=50046e4a-968b-473d-b735-79b580522a69' }} resizeMode='cover' />
-                            <Text style={[styles.text, styles.cartEmpty]}>Your Order is in the garbage</Text>
-                            <Text style={[styles.text, styles.cartEmpty]}>You have 00:{(countDown).toString().padStart(2, '0')} seconds to get your garbage.</Text>
+                            <Text style={[styles.text, styles.cartTitle]}>Your Order is in the garbage</Text>
+                            <Text style={[styles.text, styles.cartEmptyBody]}>You have 00:{(countDown).toString().padStart(2, '0')} seconds to get your garbage.</Text>
                         </>
                 }
-                <Text style={[styles.text, styles.cartEmpty]}>Pickup phrase: {order.phrase}</Text>
-                <Text style={[styles.text, styles.cartEmpty]}>Give this phrase to the cashier to pick up your order</Text>
+                <View style={styles.cartEmptyContainer}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={[styles.text, { fontSize: 20 }]}>Pickup phrase: </Text>
+                        <Text style={[styles.text, styles.cartEmptyBody]}>{order.phrase}</Text>
+                    </View>
+                    <Text style={[styles.text, styles.cartEmptyBody]}>Give this phrase to the cashier to pick up your order</Text>
+                </View>
                 <Snackbar style={styles.snackbar} duration={2500} visible={visible} onDismiss={() => setVisible(false)}>{snackMessage}</Snackbar>
             </View>
         )
@@ -171,10 +178,8 @@ const Orders = () => {
         return (
             <View style={styles.container}>
                 <Image style={styles.banner} source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/Krusty_500.jpg?alt=media&token=20d2bfc4-c078-4dae-b356-8322fb629724' }} resizeMode='cover' />
-                <Text style={[styles.text, styles.cartEmpty]}>Your Cart is Empty</Text>
-                <View style={styles.message}>
-                    <Text style={[styles.text, styles.cartEmpty]}>Get back when you have money, you rat.</Text>
-                </View>
+                <Text style={[styles.text, styles.cartTitle]}>Your Cart is Empty</Text>
+                <Text style={[styles.text, styles.cartEmptyBody]}>Get back when you have money, you rat.</Text>
                 <Snackbar style={styles.snackbar} duration={2500} visible={visible} onDismiss={() => setVisible(false)}>{snackMessage}</Snackbar>
             </View>
         )
@@ -241,10 +246,15 @@ const styles = StyleSheet.create({
     },
     snackbar: {
         backgroundColor: colors.primary,
-        fontWeight: 'bold',
-        marginBottom: 80
+        fontWeight: 'bold'
     },
-    cartEmpty: {
+    cartEmptyContainer: {
+        alignSelf: 'center',
+        justifyContent: "center",
+        width: '90%',
+        height: '50%',
+    },
+    cartTitle: {
         alignSelf: 'center',
         flex: 1,
         justifyContent: 'center',
@@ -252,17 +262,14 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
     },
+    cartEmptyBody: {
+        justifyContent: "center",
+        fontSize: 15,
+        textAlign: 'center',
+    },
     cartContainer: {
         flex: 1,
         width: '100%',
         padding: 5,
     },
-    message: {
-        alignSelf: 'center',
-        width: '90%',
-        height: '50%',
-        borderColor: colors.primary,
-        borderWidth: 2,
-        borderRadius: 20,
-    }
 })

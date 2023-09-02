@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dimensions, StyleSheet, View, Image, Platform } from 'react-native';
-// import Carousel from 'react-native-snap-carousel';
+import Carousel from 'react-native-snap-carousel';
 import bannerArray from '../../Data/bannerArray';
 
 const BannerComponent = () => {

@@ -11,7 +11,7 @@
 
 Krusty Burger App is a fan project developed for Android and iPhone devices in portrait mode. It allows fans of The Simpsons to explore the fictional world of Krusty Burger, a popular fast-food restaurant in the show.
 
-**Disclaimer:** This app is a fan project and is not affiliated with or endorsed by the owners of The Simpsons rights.
+**Disclaimer:** *This app is a fan project and is not affiliated with or endorsed by the owners of The Simpsons rights.*
 
 ## Prerequisites
 
@@ -36,7 +36,12 @@ To run the Krusty Burger App on your local machine, follow these steps:
    git clone https://github.com/fakush/krusty_burger-react_native_demo.git
    ```
 
-2. Navigate to the project directory.
+2. Insert API Key in app.json
+ Copy the API key provided with credentials in `android.config.googleMaps.apiKey` field.
+
+> WARNING! - DO NOT PUSH API-KEY TO REPOSITORY
+
+3. Navigate to the project directory.
    ```bash
    cd krusty_burger-react_native_demo
    ```
@@ -82,6 +87,15 @@ eas build -p [platform*]
 *Replace [platform] with the target platform (e.g., android or ios). This will guide you through the process of building a standalone APK or IPA file.
 
 *Replace [profile] with the target configuration profile (e.g., preview).
+
+## Main Libraries
+
+- **This is an Expo Managed React Native App**
+- @faker-js/faker - Random information generator library
+- @react-native-async-storage/async-storage - Persistence Library
+- react-native-carousel-snap - Carousel View
+- react-native-maps - Maps implementation.
+- react-native-paper - Component UI library
 
 ## Credits
 

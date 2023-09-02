@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { texts } from '../../Utils/Global/texts'
+import { colors } from '../../Utils/Global/colors'
 
 const Header = () => {
   return (
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   text: {
-    color: '#c11f44',
+    color: colors.secondaryAccent,
     paddingBottom: 5,
   }
 })

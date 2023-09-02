@@ -23,7 +23,12 @@
         "foregroundImage": "./assets/app_icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "ar.com.fcapps.krustyburguerapp"
+      "package": "ar.com.fcapps.krustyburguerapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "PLACE_API_KEY_FOR_BUILD"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/web_icon.png"

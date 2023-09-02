@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
   },
   snackbar: {
     backgroundColor: colors.primary,
-    fontWeight: 'bold',
-    marginBottom: 80
+    fontWeight: 'bold'
   }
 })

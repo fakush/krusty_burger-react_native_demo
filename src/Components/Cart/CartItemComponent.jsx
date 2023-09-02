@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CounterWidget from '../Common/Buttons/CounterWidget'
-import { IconButton } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { texts } from '../../Utils/Global/texts'
 import { colors } from '../../Utils/Global/colors'
 
@@ -10,7 +10,7 @@ const CartItemComponent = ({ item, onAddToPurchase, onRemoveFromPurchase, onDele
     return (
         <View style={styles.purchaseOption}>
             <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 5 }}>
-                <IconButton icon='cancel' size={20} containerColor={red} iconColor='white' onPress={() => onDeleteFromPurchase()} />
+                <Icon name='cancel' size={20} color='red' onPress={() => onDeleteFromPurchase()} />
                 <Text style={styles.text}>{item.name}</Text>
                 <Text style={styles.text}>${Math.round(itemPrice * 100) / 100}</Text>
                 {item.discount > 0 &&

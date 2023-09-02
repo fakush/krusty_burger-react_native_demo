@@ -4,6 +4,7 @@ import * as Location from "expo-location";
 import { colors } from "../../Utils/Global/colors";
 import MapComponent from "../Maps/MapComponent";
 import { getClosestLocation, getDistance } from "../../Services/storeLocatorService"
+import { texts } from "../../Utils/Global/texts";
 
 const LocationSelector = ({ navigation }) => {
 
@@ -12,7 +13,7 @@ const LocationSelector = ({ navigation }) => {
   const [distance, setDistance] = useState(0);
   const [closestStore, setClosestStore] = useState({})
   const [error, setError] = useState("");
-  
+
   useEffect(() => {
     (async () => {
       try {
@@ -43,7 +44,7 @@ const LocationSelector = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       try {
-        if (location.latitude ) {
+        if (location.latitude) {
           const storeObject = await getClosestLocation(location.latitude, location.longitude)
           const closestStoreData = {
             latlng: {
@@ -86,7 +87,7 @@ const LocationSelector = ({ navigation }) => {
     })();
   }, [location]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (closestStore.latitude) {
       const storeDistance = getDistance(location.latitude, location.longitude, closestStore.latitude, closestStore.longitude)
       setDistance(Number(storeDistance))
@@ -96,13 +97,16 @@ const LocationSelector = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <MapComponent location={location} closestStore={closestStore} storeList={stores} />
-      {/* {location.latitude && <Text style={styles.text}>Lat: {location.latitude}, long: {location.longitude}.</Text>} */}
-      {closestStore.address && <>
-        <Text style={styles.text}>Closest store: {closestStore.address}, {closestStore.city}.</Text>
-        <Text style={styles.text}>Store name: {closestStore.name}.</Text>
-        <Text style={styles.text}>Distance: {distance} km.</Text>
-      </>}
-      {stores.length > 0 && <Text style={styles.text}>Stores: {stores.length}.</Text>}
+      <View style={styles.body}>
+        <Text style={[texts.subtitle, styles.title]}>There's a Krusty Burger Near You! </Text>
+        {/* {location.latitude && <Text style={styles.text}>Lat: {location.latitude}, long: {location.longitude}.</Text>} */}
+        {closestStore.address && <>
+          <Text style={styles.text}>Closest store: {closestStore.address}, {closestStore.city}.</Text>
+          <Text style={styles.text}>Store name: {closestStore.name}.</Text>
+          <Text style={styles.text}>Distance: {distance} km.</Text>
+        </>}
+        {stores.length > 0 && <Text style={styles.text}>Stores Near You: {stores.length}.</Text>}
+      </View>
     </View>
   );
 };
@@ -114,11 +118,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
+    marginBottom: 60
+  },
+  body: {
+    flex: 1,
+    width: "90%",
+    alignContent: "center",
+    justifyContent: 'space-around'
   },
   text: {
+    textAlign: "center",
     paddingTop: 20,
-    fontFamily: 'Josefin',
     fontSize: 18
+  },
+  title: {
+    textAlign: "center",
+    color: colors.secondaryAccent,
   },
   noLocationContainer: {
     width: 200,
