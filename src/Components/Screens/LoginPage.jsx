@@ -87,6 +87,7 @@ const LoginPage = ({ navigation }) => {
           onSubmitEditing={() => { ref_password.current.focus() }}
           onBlur={validateEmail}
           error={errorEmail}
+          textColor='black'
         />
         {errorEmail && <Text style={styles.error}>{errorEmail}</Text>}
         <TextInput
@@ -101,6 +102,7 @@ const LoginPage = ({ navigation }) => {
           onSubmitEditing={onSubmit}
           onBlur={validatePassword}
           error={errorPassword}
+          textColor='black'
         />
         {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
         <View style={styles.button}>
