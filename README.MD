@@ -32,33 +32,49 @@ Krusty Burger App is a fan project developed for Android and iPhone devices in p
 To run the Krusty Burger App on your local machine, follow these steps:
 
 1. Clone this repository.
+
    ```bash
    git clone https://github.com/fakush/krusty_burger-react_native_demo.git
    ```
 
-2. Insert API Key in app.json
- Copy the API key provided with credentials in `android.config.googleMaps.apiKey` field.
+2. Navigate to the project directory.
 
-> WARNING! - DO NOT PUSH API-KEY TO REPOSITORY
-
-3. Navigate to the project directory.
    ```bash
    cd krusty_burger-react_native_demo
    ```
 
 3. Install dependencies.
+
    ```bash
    npm install --legacy-peer-deps
    ```
 
 4. Start the app.
+
    ```bash
    npm start
    ```
 
 5. Follow the Expo CLI instructions to open the app on your Android or iOS device or emulator.
 
+> For web debugging follow instructions in `./webDebugSetup.md`.
+
+## Development Notes
+
+- Note: There is a lot of "cli garbagge" given by `reac-native-carousel-snap` library
+  - This is a known bug of that library. As a temporary fix Comment library import and component while working on the app. Just remember to uncomment before push.
+
+- New libraries installation
+  - As a rule we recommend the installation of new libraries done by `npx expo install` command as an alternative to regular npm installation. This helps to install Expo SDK compatible libraries if found.
+
+```sh
+npx expo install [library]
+```
+
+- Also we recommend using EXPO 49 SDK Reference to search for compatible libraries and installation instructions. <https://docs.expo.dev/versions/latest/>
+
 ## Building for Development Testing
+
 Follow these steps for development testing build:
 
 ```shell
@@ -72,7 +88,13 @@ eas build -p [platform*] --profile [profile*]
 ```
 
 ## Building for Production
+
 When you're ready to build the app for production, you can use the following Expo CLI command:
+
+Insert API Key in app.json
+ Copy the API key provided with credentials in `android.config.googleMaps.apiKey` field.
+
+> WARNING! - DO NOT PUSH API-KEY TO REPOSITORY
 
 ```shell
 npm install -g eas-cli
@@ -90,7 +112,8 @@ eas build -p [platform*]
 
 ## Main Libraries
 
-- **This is an Expo Managed React Native App**
+**This is an Expo Managed React Native App**
+
 - @faker-js/faker - Random information generator library
 - @react-native-async-storage/async-storage - Persistence Library
 - react-native-carousel-snap - Carousel View
@@ -103,4 +126,4 @@ eas build -p [platform*]
 
 ## License
 
-This project is licensed under the MIT License.
+- This project is licensed under the MIT License.
