@@ -20,7 +20,7 @@ const BannerComponent = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            {Platform.OS === 'android' ?
+            {Platform.OS === 'android' || Platform.OS === 'ios' ?
                 <Carousel
                     layout="default"
                     layoutCardOffset={9}
