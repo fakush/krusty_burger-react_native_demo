@@ -1,5 +1,6 @@
 import { StyleSheet, Image, Text, View, Platform } from 'react-native'
 import React from 'react'
+//? Comment line below and comment component code block to build preview app without react-native-maps library.
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useState, useEffect } from 'react';
 
@@ -25,6 +26,8 @@ const RenderMap = ({ location, closestStore, storeList }) => {
   }, [location, storeList, closestStore])
 
   return (
+    //? Uncomment this line and comment code block below to build preview app without react-native-maps library.
+    // <Image resizeMode='cover' style={styles.image} source={{ uri: "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/krusty_map_500.jpg?alt=media&token=fa10ec18-819c-48f0-a7a8-2f483d762e00" }} />
     <>{
       Platform.OS === 'web' ?
         <Image resizeMode='cover' style={styles.image} source={{ uri: "https://firebasestorage.googleapis.com/v0/b/krusty-burger-app.appspot.com/o/krusty_map_500.jpg?alt=media&token=fa10ec18-819c-48f0-a7a8-2f483d762e00" }} />
