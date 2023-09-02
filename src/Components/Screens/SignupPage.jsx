@@ -149,6 +149,7 @@ const SignupPage = ({ navigation }) => {
           onSubmitEditing={() => { ref_email.current.focus() }}
           onBlur={validateFullName}
           error={errorFullName}
+          textColor='black'
         />
         {errorFullName && <Text style={styles.error}>{errorFullName}</Text>}
         <TextInput
@@ -161,6 +162,7 @@ const SignupPage = ({ navigation }) => {
           onSubmitEditing={() => { ref_password.current.focus() }}
           onBlur={validateEmail}
           error={errorEmail}
+          textColor='black'
         />
         {errorEmail && <Text style={styles.error}>{errorEmail}</Text>}
         <TextInput
@@ -175,6 +177,7 @@ const SignupPage = ({ navigation }) => {
           onSubmitEditing={() => { ref_passwordMatch.current.focus() }}
           onBlur={validatePassword}
           error={errorPassword}
+          textColor='black'
         />
         {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
         <TextInput
@@ -189,6 +192,7 @@ const SignupPage = ({ navigation }) => {
           onBlur={validatePasswordMatch}
           onChangeText={(password) => setConfirmPassword(password)}
           error={errorConfirmPassword}
+          textColor='black'
         />
         {errorConfirmPassword && <Text style={styles.error}>{errorConfirmPassword}</Text>}
         <View style={styles.button}>
